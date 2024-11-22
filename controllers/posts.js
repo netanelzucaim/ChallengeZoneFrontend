@@ -19,5 +19,14 @@ const getAllPosts = async (req,res,next) => {
         res.status(400).send(err.message)
     }
 }
+const createPost = async (req,res,next) => {
+    console.log(req.body)
+    try{
+    const post = await Posts.create(req.body)
+    res.status(201).send(post);
+    } catch (error) {
+    res.status(400).send(error.message);
+    }
+}
 
-module.exports = {getAllPosts}
+module.exports = {getAllPosts,createPost}
