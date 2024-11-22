@@ -1,16 +1,17 @@
-
 ###
-
 GET http://localhost:3000/posts
+
 ###
+GET http://localhost:3000/posts/673d0564b273097878ab817d
 
-
+###
 POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
     "owner": "ff",
-    "content": "workingggg"
+    "content": "workingggg", 
+    "title":"ff"
 
 }
 
