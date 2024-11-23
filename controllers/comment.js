@@ -11,5 +11,15 @@ const createComment = async (req,res,next) => {
     }
 }
 
+const deleteComment = async (req,res,next) => {
+    try{
+    const id = req.params.id; 
+    console.log(id)
+    const post = await Comments.findByIdAndDelete(id)
+    res.status(200).send(`succesfully delete comment with id of ${id}`);
+    } catch (error) {   
+    res.status(400).send(error.message);
+    }
+}
 
-module.exports = {createComment}
+module.exports = {createComment,deleteComment}
