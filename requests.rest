@@ -1,10 +1,10 @@
-###
+### get all posts
 GET http://localhost:3000/posts
 
-###
+### get post by id
 GET http://localhost:3000/posts/673d0564b273097878ab817d
 
-###
+### create post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
@@ -15,3 +15,20 @@ Content-Type: application/json
 
 }
 
+### create comment
+POST http://localhost:3000/comments
+Content-Type: application/json
+
+{
+    "userName": "noam",
+    "detail": "nati is the king",
+    "postId": "673ed60a4034f8aa05861ce0" 
+}
+
+
+### delete a comment by id
+DELETE http://localhost:3000/comments/674086daeb9fd19194ece26f
+
+
+### get all comements
+GET http://localhost:3000/comments/
