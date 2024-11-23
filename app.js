@@ -5,7 +5,9 @@ const express = require('express')
 const app = express()
 const dotenv = require('dotenv').config();
 const port = process.env.PORT   
+const commentRouter = require('./routes/comment_routes.js') 
 const postRouter = require('./routes/post_routes.js') 
+
 const mongoose =require("mongoose");
 
 
@@ -23,6 +25,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 
 app.use('/posts',postRouter)
+app.use('/comments',commentRouter)
 
 app.listen(port, () => {
      console.log(`Example app listening on port ${port}`)})
