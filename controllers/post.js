@@ -47,4 +47,4 @@ const createPost = async (req,res,next) => {
     }
 }
 
-module.exports = {getAllPosts,getPostById,createPost,getPosts}
+module.exports = {getPostById,createPost,getPosts}

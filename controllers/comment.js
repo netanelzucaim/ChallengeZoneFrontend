@@ -14,8 +14,13 @@ const deleteComment = async (req,res,next) => {
     try{
     const id = req.params.id; 
     console.log(id)
-    const comment = await Comments.findByIdAndDelete(id)
-    res.status(200).send(`succesfully delete comment with id of ${id}`);
+    const comment = await Comments.findById(id)
+    if(!comment){
+        res.status(200).send(`id ${id} does not exist`);
+    } else {
+        const comment = await Comments.findByIdAndDelete(id)
+        res.status(200).send(`succesfully delete comment with id of ${id}`);
+    }
     } catch (error) {   
     res.status(400).send(error.message);
     }
