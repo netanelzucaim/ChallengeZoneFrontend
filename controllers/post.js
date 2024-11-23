@@ -1,20 +1,31 @@
 //get all posts from database
 const Posts = require("../models/post_model")
 
-const getAllPosts = async (req,res,next) => {
+const getPosts = async (req,res,next) => {
+    console.log("arrived");
     const query = req.query;
     console.log(query);
     try{
-      if(query.owner){
-        console.log('hid')
-        const posts = await Posts.find({owner: query.owner});
-        console.log(posts)
-        res.send(posts)
+
+      if(query.sender){ 
+        const postsOfSender = await Posts.find({userId: query.sender});
+        console.log(postsOfSender)
+        res.send(postsOfSender)
       } else {
+        console.log(`params are ${req.query}`)
         const posts = await Posts.find();
         console.log(posts)
-        res.send(posts) 
+        res.send(posts)      
       }        
+    } catch(err){
+        res.status(400).send(`${err.message} - make sure you attach sender id `)
+    }
+}
+const getAllPosts = async (req,res,next) => {
+    try{
+        const posts = await Posts.find();
+        console.log(posts)
+        res.send(posts)         
     } catch(err){
         res.status(400).send(err.message)
     }
@@ -44,4 +55,4 @@ const createPost = async (req,res,next) => {
     }
 }
 
-module.exports = {getAllPosts,getPostById,createPost}
+module.exports = {getAllPosts,getPostById,createPost,getPosts}

@@ -1,5 +1,24 @@
+
+### create user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "userName": "noam"
+}
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "userName": "noam"
+}
+
 ### get all posts
 GET http://localhost:3000/posts
+
+### get all posts of user
+GET http://localhost:3000/posts?xx=67420c4ec36933d2dd0f9d4c
 
 ### get post by id
 GET http://localhost:3000/posts/673d0564b273097878ab817d
@@ -9,19 +28,20 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "owner": "ff",
-    "content": "workingggg", 
+    "userId": "6741fe3289eda673ce600854",
+    "content": "check", 
     "title":"ff"
 
 }
+
 
 ### create comment
 POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-    "userName": "noam",
-    "detail": "nati is the king",
+    "userId": "6741fe3289eda673ce600854",
+    "content": "nati is the king",
     "postId": "673ed60a4034f8aa05861ce0" 
 }
 
@@ -29,6 +49,3 @@ Content-Type: application/json
 ### delete a comment by id
 DELETE http://localhost:3000/comments/674086a8eb9fd19194ece26d
 
-
-### get all comements
-GET http://localhost:3000/comments/
