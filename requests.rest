@@ -18,7 +18,7 @@ Content-Type: application/json
 GET http://localhost:3000/posts
 
 ### get all posts of user
-GET http://localhost:3000/posts?xx=67420c4ec36933d2dd0f9d4c
+GET http://localhost:3000/posts?sender=67420c4ec36933d2dd0f9d4c
 
 ### get post by id
 GET http://localhost:3000/posts/673d0564b273097878ab817d

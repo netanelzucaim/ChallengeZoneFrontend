@@ -1,5 +1,6 @@
 //get all posts from database
 const Posts = require("../models/post_model")
+// get post by sender or get all posts
 
 const getPosts = async (req,res,next) => {
     console.log("arrived");
@@ -12,7 +13,6 @@ const getPosts = async (req,res,next) => {
         console.log(postsOfSender)
         res.send(postsOfSender)
       } else {
-        console.log(`params are ${req.query}`)
         const posts = await Posts.find();
         console.log(posts)
         res.send(posts)      
@@ -21,15 +21,7 @@ const getPosts = async (req,res,next) => {
         res.status(400).send(`${err.message} - make sure you attach sender id `)
     }
 }
-const getAllPosts = async (req,res,next) => {
-    try{
-        const posts = await Posts.find();
-        console.log(posts)
-        res.send(posts)         
-    } catch(err){
-        res.status(400).send(err.message)
-    }
-}
+
 const getPostById = async (req,res,next) => {
     const id = req.params.id;
     if(id){
