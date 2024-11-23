@@ -27,7 +27,7 @@ Content-Type: application/json
 
 
 ### delete a comment by id
-DELETE http://localhost:3000/comments/674086daeb9fd19194ece26f
+DELETE http://localhost:3000/comments/674086a8eb9fd19194ece26d
 
 
 ### get all comements
