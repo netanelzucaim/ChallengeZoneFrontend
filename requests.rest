@@ -14,26 +14,25 @@ Content-Type: application/json
     "userName": "noam"
 }
 
-### get all posts
-GET http://localhost:3000/posts
-
-### get all posts of user
-GET http://localhost:3000/posts?xx=67420c4ec36933d2dd0f9d4c
-
-### get post by id
-GET http://localhost:3000/posts/673d0564b273097878ab817d
-
 ### create post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "userId": "6741fe3289eda673ce600854",
+    "userId": "67421b8a453bbd60febea459",
     "content": "check", 
     "title":"ff"
-
 }
 
+
+### get all posts
+GET http://localhost:3000/posts
+
+### get all posts of user
+GET http://localhost:3000/posts?sender=67421b8a453bbd60febea459
+
+### get post by id
+GET http://localhost:3000/posts/67421a7453bbd60febea45b
 
 ### create comment
 POST http://localhost:3000/comments
@@ -47,5 +46,5 @@ Content-Type: application/json
 
 
 ### delete a comment by id
-DELETE http://localhost:3000/comments/674086a8eb9fd19194ece26d
+DELETE http://localhost:3000/comments/67421c03453bbd60febea463
 
