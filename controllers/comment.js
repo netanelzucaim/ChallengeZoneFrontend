@@ -1,14 +1,20 @@
 const Comments = require("../models/comment_model");
+const Posts = require("../models/post_model");
 
-const createComment = async (req,res,next) => {
-    console.log(req.body);
+const createComment = async (req,res) => {
+    const id = req.body.postId;
+    console.log(req.body.postId);
     try{
-    const comment = await Comments.create(req.body)
-    res.status(201).send(comment);
+        const post = await Posts.findById(id);
+        if (!post) {
+          return res.status(404).json({ message: 'Post not found' });
+        }
+        const comment = await Comments.create(req.body);
+        res.status(201).send(comment);
     } catch (error) {
     res.status(400).send(error.message);
     }
-}
+};
 
 const deleteComment = async (req,res,next) => {
     try{
