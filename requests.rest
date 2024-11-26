@@ -3,8 +3,8 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "sender": "Nati",
-    "title": "I want Devops",
+    "sender": "Noam",
+    "title": "This is my first Post",
     "content": "That's amazing"
 }
 
@@ -13,7 +13,7 @@ Content-Type: application/json
 GET http://localhost:3000/posts
 
 ### get all posts of user
-GET http://localhost:3000/posts?sender=Noam2
+GET http://localhost:3000/posts?sender=Noam
 
 ### get post by id
 GET http://localhost:3000/posts/6745c8d755136901ff07556b
@@ -33,8 +33,8 @@ POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-    "user": "Oritamir",
-    "content": "MaZe",
+    "user": "Netanel",
+    "content": "What a beautiful post!",
     "postId": "67459adb24cdcce62681939d"
 } 
 
@@ -45,14 +45,13 @@ GET http://localhost:3000/comments
 ###get comments by post id
 GET http://localhost:3000/comments/67459adb24cdcce62681939d
 
-
-###delete comment by id
-DELETE  http://localhost:3000/comments/delete/6745c69e4a9c91ca56a0edc2
-
 ### update comment by id
 PUT http://localhost:3000/comments/6745d766a5c69ba69f0b7d2c
 Content-Type: application/json
 
 {
-    "content": "Ma Ze"
+    "content": "What an update!!!"
 }
+
+###delete comment by id
+DELETE  http://localhost:3000/comments/delete/6745c69e4a9c91ca56a0edc2
