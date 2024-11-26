@@ -43,19 +43,18 @@ const getCommentsByPostId = async (req,res) => {
     return res.status(400).send(err.message);
 };
 
-const deleteComment = async (req,res,next) => {
+const deleteComment = async (req,res) => {
     try{
-    const id = req.params.id; 
-    console.log(id);
-    const comment = await Comments.findById(id);
-    if(!comment){
-        res.status(200).send(`id ${id} does not exist`);
-    } else {
-        const comment = await Comments.findByIdAndDelete(id);
-        res.status(200).send(`succesfully delete comment with id of ${id}`);
-    }
+        const id = req.params.id; 
+        const comment = await Comments.findById(id);
+        if(!comment){
+            res.status(200).send(`id ${id} does not exist`);
+        } else {
+            const comment = await Comments.findByIdAndDelete(id);
+            res.status(200).send(`succesfully delete comment with id of ${id}`);
+        }
     } catch (error) {   
-    res.status(400).send(error.message);
+        res.status(400).send(error.message);
     }
 }
 
