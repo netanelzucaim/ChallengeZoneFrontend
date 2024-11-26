@@ -45,3 +45,7 @@ GET http://localhost:3000/comments
 
 ###get comments by post id
 GET http://localhost:3000/comments/6745cf5007b50a4d9c382153
+
+
+###delete comment by id
+DELETE  http://localhost:3000/comments/delete/6745c69e4a9c91ca56a0edc2
