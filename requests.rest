@@ -34,6 +34,14 @@ GET http://localhost:3000/posts?sender=Noam2
 GET http://localhost:3000/posts/67459adb24cdcce62681939d
 
 
+### update post by id
+PUT http://localhost:3000/posts/67459adb24cdcce62681939d
+Content-Type: application/json
+
+{
+    "content": "nati is the king"
+}
+
 
 ### create comment
 POST http://localhost:3000/comments
