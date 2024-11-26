@@ -38,7 +38,6 @@ Content-Type: application/json
     "postId": "67459adb24cdcce62681939d"
 } 
 
-
 ### get all comments
 GET http://localhost:3000/comments
 

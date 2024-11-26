@@ -6,12 +6,12 @@ var commentSchema = new Schema({
         required: true,
     },content: {
         type: String,
-        required: true,
+        required: true
     },
     postId: {
         type: Schema.Types.ObjectId,
-        ref: 'Posts',
-        required: true,
+        ref: 'Post',
+        required: true
     }
   });
 
