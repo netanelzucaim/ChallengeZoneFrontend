@@ -33,9 +33,9 @@ POST http://localhost:3000/comments
 Content-Type: application/json
 
 {
-    "user": "Harelos",
-    "content": "Amen",
-    "postId": "6745cf5007b50a4d9c382153"
+    "user": "Oritamir",
+    "content": "MaZe",
+    "postId": "67459adb24cdcce62681939d"
 } 
 
 
@@ -44,8 +44,16 @@ GET http://localhost:3000/comments
 
 
 ###get comments by post id
-GET http://localhost:3000/comments/6745cf5007b50a4d9c382153
+GET http://localhost:3000/comments/67459adb24cdcce62681939d
 
 
 ###delete comment by id
 DELETE  http://localhost:3000/comments/delete/6745c69e4a9c91ca56a0edc2
+
+### update comment by id
+PUT http://localhost:3000/comments/6745d766a5c69ba69f0b7d2c
+Content-Type: application/json
+
+{
+    "content": "Ma Ze"
+}
