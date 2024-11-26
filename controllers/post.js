@@ -21,6 +21,7 @@ const getPosts = async (req,res) => {
 
 const getPostById = async (req,res) => {
     const id = req.params.id;
+    console.log(req.body);
     if (id) {
         try{
             const post = await Posts.findById(id);
@@ -36,6 +37,23 @@ const getPostById = async (req,res) => {
     return res.status(400).send(err.message);
 };
 
+const updatePostById = async (req, res) => {
+    const id = req.params.id;
+    console.log(req.body);
+    try {
+        const post = await Posts.findById(id);
+        if (post) {
+            post.content = req.body.content;
+            await post.save();
+            return res.status(200).send(post);
+        } else {
+            return res.status(404).send("Post not found");
+        }
+    } catch (err) {
+        return res.status(400).send(err.message);
+    }
+};
+
 const createPost = async (req,res) => {
     console.log(req.body);
     try {
@@ -46,4 +64,4 @@ const createPost = async (req,res) => {
     }
 };
 
-module.exports = {getPosts,getPostById,createPost}
+module.exports = {getPosts,getPostById,updatePostById,createPost}
