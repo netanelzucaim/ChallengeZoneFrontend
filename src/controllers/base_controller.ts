@@ -2,6 +2,7 @@
 import {Request,Response} from "express"
 import { Model } from "mongoose";
 
+
 class BaseController<T> {
     model: Model<T>;
     constructor(model: any){

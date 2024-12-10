@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 import mongoose from "mongoose";
 import postRouter from "./routes/post_routes" 
-// import commentRouter from "./routes/comment_routes" 
+import commentRouter from "./routes/comment_routes" 
 
 import bodyParser from "body-parser";
 
@@ -12,7 +12,7 @@ import bodyParser from "body-parser";
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/posts',postRouter)
-// app.use('/comments',commentRouter)
+app.use('/comments',commentRouter)
 const db = mongoose.connection;
 db.on("error",console.error.bind(console, "connection error:"));
 db.once("open",function(){
