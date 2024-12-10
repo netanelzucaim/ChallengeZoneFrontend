@@ -1,6 +1,10 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-var commentSchema = new Schema({
+
+export default iComment{
+ 
+}
+const commentSchema = new Schema<iComment>({
     user: {
         type: String,
         required: true,
@@ -16,5 +20,5 @@ var commentSchema = new Schema({
   });
 
 
-const Comments = mongoose.model("Comment", commentSchema);
-module.exports = Comments; 
+const Comments = mongoose.model<iComment>("Comment", commentSchema);
+export default Comments; 

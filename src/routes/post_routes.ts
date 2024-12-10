@@ -1,15 +1,15 @@
 import express from 'express';
 const router  = express.Router();
-import post from '../controllers/post';
+import postController from '../controllers/post_controller';
 
 router.get("/:id",(req,res) =>{
-    post.getPostById(req,res)
+    postController.getById(req,res)
 });
-router.post("/",post.createPost);
-router.get("/",post.getPosts);
+router.post("/",postController.create.bind(postController));
+router.get("/",postController.getAll.bind(postController));
 router.put("/:id",(req,res) =>{
-    post.updatePostById(req,res)
+    postController.updateById(req,res)
 });
-router.delete("/:id", post.deletePost);
+router.delete("/:id", postController.deleteById.bind(postController));
 
 export default router;

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/routes/post_routes.ts</title>
+    <title>Code coverage report for src/routes/comment_routes.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/routes</a> post_routes.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/routes</a> comment_routes.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.9% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -75,35 +75,29 @@
 <a name='L10'></a><a href='#L10'>10</a>
 <a name='L11'></a><a href='#L11'>11</a>
 <a name='L12'></a><a href='#L12'>12</a>
-<a name='L13'></a><a href='#L13'>13</a>
-<a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L13'></a><a href='#L13'>13</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">import express from 'express';
 const router  = express.Router();
-import post from '../controllers/post_controller';
+import commentsController from '../controllers/comment_controller';
 &nbsp;
-router.get("/:id",(req,res) =&gt;{
-    post.getPostById(req,res)
-});
-router.post("/",post.createPost);
-router.get("/",post.getPosts);
-router.put("/:id",<span class="fstat-no" title="function not covered" >(r</span>eq,res) =&gt;{
-<span class="cstat-no" title="statement not covered" >    post.updatePostById(req,res)</span>
-});
-router.delete("/:id", post.deletePost);
+router.delete("/:id", commentsController.deleteComment);
+router.post("/",commentsController.createComment);
+router.get("/", commentsController.getComments);
+//TO DO : implement it
+// router.get("/:id", commentsController.getCommentsByPostId);
+router.get("/:id", commentsController.getCommentById);
+router.put("/:id", commentsController.updateCommentById);
 &nbsp;
 export default router;</pre></td></tr></table></pre>
 
