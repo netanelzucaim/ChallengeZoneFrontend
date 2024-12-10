@@ -87,8 +87,9 @@ class BaseController<T> {
         }
     };
 }
-const createController = <T>(model:Model<T>)=>{
+//TO DO: understand what to export - they both or just one?
+export const createController = <T>(model:Model<T>)=>{
 return new BaseController(model);
 }
-export default  createController
+export default BaseController
 

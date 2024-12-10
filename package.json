@@ -4,7 +4,8 @@
   "description": "posts project for coorse in the campus",
   "main": "app.js",
   "scripts": {
-    "test": "tsc && jest --detectOpenHandles --forceExit --coverage",
+    "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage auth.test.ts",
+    "test": "tsc && jest --detectOpenHandles --forceExit --coverage ",
     "dev": "nodemon ./src/app.ts",
     "start": "tsc && node ./dist/app.js",
     "lint": "eslint . "
@@ -21,8 +22,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.16.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.16.0",
     "globals": "^15.13.0",

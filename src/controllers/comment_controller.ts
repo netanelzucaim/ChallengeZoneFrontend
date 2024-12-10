@@ -1,7 +1,7 @@
 import commentModel,{iComment} from "../models/comment_model";
 import createController from "./base_controller"
-const commentController = createController<iComment>(commentModel)
-
+const commentController = new createController<iComment>(commentModel)
+//TO DO: adjust it to inherit as done with postControlller
 export default commentController
 
 //TO DO : migrating to bae_controller
