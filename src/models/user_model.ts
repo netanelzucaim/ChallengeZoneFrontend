@@ -9,8 +9,10 @@ const userSchema = new Schema({
     },password: {
         type: String,
         required: true
-    }
-  });
+    }, refreshTokens: {
+        type: [String],
+        default: []
+  }});
 
 
 const Comments = mongoose.model("User", userSchema);

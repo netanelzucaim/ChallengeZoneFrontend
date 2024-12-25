@@ -4,8 +4,9 @@
   "description": "posts project for coorse in the campus",
   "main": "app.js",
   "scripts": {
-    "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage auth.test.ts",
-    "test": "tsc && jest --detectOpenHandles --forceExit --coverage ",
+    "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage auth.test.ts  --runInBand",
+    "testPost": "tsc && jest --detectOpenHandles --forceExit --coverage posts.test.ts",
+    "test": "tsc && jest --detectOpenHandles --forceExit --runInBand ",
     "dev": "nodemon ./src/app.ts",
     "start": "tsc && node ./dist/app.js",
     "lint": "eslint . "

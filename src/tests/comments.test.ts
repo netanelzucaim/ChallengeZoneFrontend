@@ -5,7 +5,7 @@ import commentModel from "../models/comment_model"
 import testComments from "./tests_comment.json"
 import {Express} from "express" 
 let app:Express;
-
+//TODO: implement this tests by jwt 
 beforeAll(async ()=>{console.log("before all tests");
     app = await appInit()
     await commentModel.deleteMany();

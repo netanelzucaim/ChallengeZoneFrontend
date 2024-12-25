@@ -10,7 +10,6 @@ class BaseController<T> {
     }
     async getAll (req: Request,res:Response) {
         const query = req.query;
-        console.log(query);
         try {
             if (query.sender){ 
             const postsOfSender = await this.model.find({sender: query.sender});
@@ -18,7 +17,6 @@ class BaseController<T> {
             res.send(postsOfSender);
         } else {
             const posts = await this.model.find();
-            console.log(posts);
             res.send(posts);      
         }        
         } catch(err){
