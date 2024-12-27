@@ -11,6 +11,28 @@ import {authMiddleware} from '../controllers/auth_controller';
 *   description: The Posts API
 */
 
+
+
+/**
+* @swagger
+* /posts:
+*   get:
+*     summary: Get all posts
+*     description: Retrieve all posts
+*     tags: [Posts]
+*     responses:
+*       200:
+*         description: Posts retrieved successfully
+*       400:
+*         description: Error getting posts
+*/
+
+
+router.get("/", (req: Request, res: Response) => {
+    postController.getAll(req, res);
+});
+
+
 /**
 * @swagger
 * /posts/{id}:
@@ -28,25 +50,12 @@ import {authMiddleware} from '../controllers/auth_controller';
 *     responses:
 *       200:
 *         description: Post retrieved successfully
-*         content:
-*           application/json:
-*             schema:
-*               type: object
-*               properties:
-*                 title:
-*                   type: string
-*                 content:
-*                   type: string
-*                 owner:
-*                   type: string
-*                 _id:
-*                   type: string
 *       404:
 *         description: Post not found
-*       500:
-*         description: Internal server error
+*       400:
+*         description: Error getting post
 */
-router.get("/:id",(req,res) =>{
+router.get("/:id",(req: Request, res: Response) =>{
     postController.getById(req,res)
 });
 /**
@@ -73,7 +82,7 @@ router.get("/:id",(req,res) =>{
 *                           description: the post content
 *                           example: "This is my first post ....."
 *     responses:
-*       200:
+*       201:
 *         description: The post was successfully created
 *         content:
 *           application/json:
@@ -88,55 +97,60 @@ router.get("/:id",(req,res) =>{
 *                           type: string
 *                           description: the post content
 *                           example: "This is my first post ....."
-*                       owner:
+*                       sender:
 *                           type: string
-*                           description: the post owner
+*                           description: the post sender
 *                           example: "60f3b4b3b3b3b3b3b3b3b3b3"
 *                       _id:
 *                           type: string
 *                           description: the post id
 *                           example: "60f3b4b3b3b3b3b3b3b3b3"
+*       400:
+*         description: error creating post
 */
 
-router.post("/",authMiddleware,postController.create.bind(postController));
-
-
+router.post("/",authMiddleware,postController.createItem.bind(postController));
 
 /**
 * @swagger
-* /posts:
-*   get:
-*     summary: Get all posts
-*     description: Retrieve all posts
+* /posts/{id}:
+*   put:
+*     summary: Updatting a post
+*     description: Update a post by its ID
+*     security:
+*       - bearerAuth: []
 *     tags: [Posts]
+*     parameters:
+*       - in: path
+*         name: id
+*         schema:
+*           type: string
+*         required: true
+*         description: The ID of the post to delete
+*     requestBody:
+*       required: false
+*       content:
+*         application/json:
+*           schema:
+*               type: object
+*               properties:
+*                       title:
+*                           type: string
+*                           description: the post title
+*                           example: "My first post updated"
+*                       content:
+*                           type: string
+*                           description: the post content
+*                           example: "This is my first post updated ....."
 *     responses:
 *       200:
-*         description: Posts retrieved successfully
-*         content:
-*           application/json:
-*             schema:
-*               type: array
-*               items:
-*                 type: object
-*                 properties:
-*                   title:
-*                     type: string
-*                   content:
-*                     type: string
-*                   owner:
-*                     type: string
-*                   _id:
-*                     type: string
-*       500:
-*         description: Internal server error
+*         description: Post updated successfully
+*       400:
+*         description: Error in post update
 */
-router.get("/",postController.getAll.bind(postController));
-router.put("/:id",(req,res) =>{
+router.put("/:id",authMiddleware,(req,res) =>{
     postController.updateById(req,res)
 });
-
-
-
 /**
 * @swagger
 * /posts/{id}:
@@ -156,11 +170,9 @@ router.put("/:id",(req,res) =>{
 *     responses:
 *       200:
 *         description: Post deleted successfully
-*       404:
+*       400:
 *         description: Post not found
-*       500:
-*         description: Internal server error
 */
-router.delete("/:id",authMiddleware, postController.deleteById.bind(postController));
+router.delete("/:id",authMiddleware, postController.deleteItem.bind(postController));
 
 export default router;

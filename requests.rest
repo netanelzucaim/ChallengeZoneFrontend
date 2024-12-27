@@ -51,4 +51,4 @@ Content-Type: application/json
 }
 
 ###delete comment by id
-DELETE  http://localhost:3000/posts/6757f8d1d1a268ddf083889c
+DELETE  http://localhost:3000/posts/60f3b4b3b3b3b3b3b3b3b3
