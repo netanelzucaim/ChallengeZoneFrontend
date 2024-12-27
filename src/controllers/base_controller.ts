@@ -8,64 +8,51 @@ class BaseController<T> {
     constructor(model: any){
         this.model = model;
     }
-    async getAll (req: Request,res:Response) {
-        const query = req.query;
+    async getAll(req: Request, res: Response) {
+        const filter = req.query;
+        console.log(filter);
         try {
-            if (query.sender){ 
-            const postsOfSender = await this.model.find({sender: query.sender});
-            console.log(postsOfSender);
-            res.send(postsOfSender);
-        } else {
-            const posts = await this.model.find();
-            res.send(posts);      
-        }        
-        } catch(err){
-            if (err instanceof Error) {
-            res.status(400).send(`${err.message} - make sure you attach sender id `)
-            }
-        }
-    };
-
-    async getById (req: Request,res:Response) {
-        const id = req.params.id;
-        console.log(req.body);
-        try{
-            const post = await this.model.findById(id);
-            if (post) {
-                return res.send(post);
-            } else {
-                return res.status(404).send("Post not found");
-            }
+          
+            const data = await this.model.find(filter as any);
+            return res.send(data);
         } catch (err) {
-            if (err instanceof Error) {
-            return res.status(400).send(err.message);
-            }
+            return res.status(400).send(err);
         }
-        
     };
+    async getById(req: Request, res: Response) {
+        const id = req.params.id;
+        if (id) {
+          try {
+            const data = await this.model.findById(id);
+            if (data) {
+              return res.send(data);
+            } else {
+              return res.status(404).send("item not found");
+            }
+          } catch (err) {
+            return res.status(400).send(err);
+          }
+        }
+        return res.status(400).send("invalid id");
+      };
+    
 
     async updateById (req: Request,res:Response) {
         const id = req.params.id;
-        console.log(req.body);
+        const updateData = req.body;
         try {
-            const post = await this.model.findById(id);
-            if (post) {
-                //need to fix
-                // post.content = req.body.content;
-                await post.save();
-                return res.status(200).send(post);
+            const data = await this.model.findByIdAndUpdate(id, updateData, { new: true });
+            if (data) {
+                return res.status(200).send(data);
             } else {
-                return res.status(404).send("Post not found");
+                return res.status(404).send("Item not found");
             }
         } catch (err) {
-            if (err instanceof Error) {
-            return res.status(400).send(err.message);
-            }
+            return res.status(400).send(err);
         }
     };
 
-    async create(req: Request,res:Response) {
-        console.log(req.body);
+    async createItem(req: Request,res:Response) {
         try {
             const post = await this.model.create(req.body);
             res.status(201).send(post);
@@ -74,12 +61,11 @@ class BaseController<T> {
         }
     };
 
-    async deleteById (req: Request,res:Response) {
+    async deleteItem (req: Request,res:Response) {
         const id = req.params.id;
-        console.log("id to be deleted is "+ id)
         try {
             await this.model.findByIdAndDelete(id);
-            res.status(200).send();
+            res.status(200).send("deleted successfully");
         } catch (err) {
             res.status(400).send(err);
         }
