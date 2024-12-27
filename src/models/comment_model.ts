@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 export interface iComment{
     user: string;
     content: string;
-    postId: mongoose.Schema.Types.ObjectId;
+    postId: string;
 }
 const commentSchema = new Schema<iComment>({
     user: {
@@ -15,9 +15,8 @@ const commentSchema = new Schema<iComment>({
         required: true
     },
     postId: {
-        type: Schema.Types.ObjectId,
-        ref: 'Post',
-        required: true
+        type: String,
+        required: true,
     }
   });
 
