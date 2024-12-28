@@ -23,9 +23,25 @@ import {authMiddleware} from '../controllers/auth_controller';
 *     responses:
 *       200:
 *         description: Posts retrieved successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: array
+*               items:
+*                 type: object
+*                 properties:
+*                   title:
+*                     type: string
+*                   content:
+*                     type: string
+*                   sender:
+*                     type: string
+*                   _id:
+*                     type: string
 *       400:
 *         description: Error getting posts
 */
+
 
 
 router.get("/", (req: Request, res: Response) => {
@@ -50,6 +66,19 @@ router.get("/", (req: Request, res: Response) => {
 *     responses:
 *       200:
 *         description: Post retrieved successfully
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                 title:
+*                   type: string
+*                 content:
+*                   type: string
+*                 sender:
+*                   type: string
+*                 _id:
+*                   type: string
 *       404:
 *         description: Post not found
 *       400:
@@ -58,6 +87,7 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/:id",(req: Request, res: Response) =>{
     postController.getById(req,res)
 });
+
 /**
 * @swagger
 * /posts:
@@ -115,7 +145,7 @@ router.post("/",authMiddleware,postController.createItem.bind(postController));
 * @swagger
 * /posts/{id}:
 *   put:
-*     summary: Updatting a post
+*     summary: Update post
 *     description: Update a post by its ID
 *     security:
 *       - bearerAuth: []
@@ -126,7 +156,7 @@ router.post("/",authMiddleware,postController.createItem.bind(postController));
 *         schema:
 *           type: string
 *         required: true
-*         description: The ID of the post to delete
+*         description: The ID of the post to update
 *     requestBody:
 *       required: false
 *       content:
@@ -144,7 +174,28 @@ router.post("/",authMiddleware,postController.createItem.bind(postController));
 *                           example: "This is my first post updated ....."
 *     responses:
 *       200:
-*         description: Post updated successfully
+*         description: The post was successfully updated
+*         content:
+*           application/json:
+*             schema:
+*               type: object
+*               properties:
+*                       title:
+*                           type: string
+*                           description: the post title
+*                           example: "My first post"
+*                       content:
+*                           type: string
+*                           description: the post content
+*                           example: "This is my first post ....."
+*                       sender:
+*                           type: string
+*                           description: the post sender
+*                           example: "60f3b4b3b3b3b3b3b3b3b3b3"
+*                       _id:
+*                           type: string
+*                           description: the post id
+*                           example: "60f3b4b3b3b3b3b3b3b3b3"
 *       400:
 *         description: Error in post update
 */
@@ -155,7 +206,7 @@ router.put("/:id",authMiddleware,(req,res) =>{
 * @swagger
 * /posts/{id}:
 *   delete:
-*     summary: Delete a post
+*     summary: Delete post
 *     description: Delete a post by its ID
 *     security:
 *       - bearerAuth: []

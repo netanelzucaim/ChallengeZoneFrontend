@@ -10,7 +10,8 @@ const commentSchema = new Schema<iComment>({
     sender: {
         type: String,
         required: true,
-    },comment: {
+    },
+    comment: {
         type: String,
         required: true
     },

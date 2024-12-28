@@ -8,6 +8,7 @@ import postModel from "../models/post_model";
 let app: Express;
 
 beforeAll(async () => {
+    process.env.TOKEN_EXPIRATION = "3s";
     console.log("before all tests");
     app = await appInit();
     await userModel.deleteMany();
@@ -34,7 +35,6 @@ const userInfo: UserInfo = {
 
 describe("Auth Test", () => {
     test("Auth Registration", async () => {
-        console.log("test 1")
         const response = await request(app).post("/auth/register").send(userInfo);
         expect(response.body);
         expect(response.statusCode).toBe(201);
@@ -165,7 +165,7 @@ describe("Auth Test", () => {
         const response2 = await request(app).post("/posts").set({
             authorization: 'jwt ' + userInfo.accessToken
         }).send({
-            owner: "invalid owner",
+            sender: "invalid owner",
             title: "My First post",
             content: "This is my first post"
         });

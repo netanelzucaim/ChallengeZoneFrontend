@@ -24,5 +24,4 @@ class CommentController extends BaseController<iComment> {
     }
 }
 
-
 export default new CommentController(commentModel)
