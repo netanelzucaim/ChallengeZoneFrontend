@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1735301152976" clover="3.2.0">
-  <project timestamp="1735301152976" name="All files">
-    <metrics statements="233" coveredstatements="145" conditionals="38" coveredconditionals="12" methods="34" coveredmethods="22" elements="305" coveredelements="179" complexity="0" loc="233" ncloc="233" packages="4" files="8" classes="8"/>
+<coverage generated="1735399608720" clover="3.2.0">
+  <project timestamp="1735399608720" name="All files">
+    <metrics statements="263" coveredstatements="149" conditionals="38" coveredconditionals="7" methods="39" coveredmethods="19" elements="340" coveredelements="175" complexity="0" loc="263" ncloc="263" packages="4" files="11" classes="11"/>
     <package name="src">
-      <metrics statements="30" coveredstatements="27" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
+      <metrics statements="32" coveredstatements="29" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
       <file name="server.ts" path="C:\Projects\posts\Posts\src\server.ts">
-        <metrics statements="30" coveredstatements="27" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
+        <metrics statements="32" coveredstatements="29" conditionals="2" coveredconditionals="1" methods="5" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -19,6 +20,7 @@
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -39,9 +41,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="172" coveredstatements="87" conditionals="36" coveredconditionals="11" methods="26" coveredmethods="15"/>
+      <metrics statements="182" coveredstatements="76" conditionals="36" coveredconditionals="6" methods="28" coveredmethods="14"/>
       <file name="auth_controller.ts" path="C:\Projects\posts\Posts\src\controllers\auth_controller.ts">
-        <metrics statements="126" coveredstatements="49" conditionals="31" coveredconditionals="7" methods="17" coveredmethods="7"/>
+        <metrics statements="126" coveredstatements="47" conditionals="31" coveredconditionals="6" methods="17" coveredmethods="7"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -152,63 +154,63 @@
         <line num="157" count="0" type="stmt"/>
         <line num="162" count="0" type="stmt"/>
         <line num="171" count="1" type="stmt"/>
-        <line num="172" count="5" type="stmt"/>
-        <line num="173" count="5" type="cond" truecount="2" falsecount="0"/>
-        <line num="174" count="5" type="cond" truecount="1" falsecount="0"/>
-        <line num="175" count="1" type="stmt"/>
-        <line num="176" count="1" type="stmt"/>
-        <line num="178" count="4" type="cond" truecount="0" falsecount="1"/>
+        <line num="172" count="3" type="stmt"/>
+        <line num="173" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="174" count="3" type="cond" truecount="0" falsecount="1"/>
+        <line num="175" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="178" count="3" type="cond" truecount="0" falsecount="1"/>
         <line num="179" count="0" type="stmt"/>
         <line num="180" count="0" type="stmt"/>
-        <line num="182" count="4" type="stmt"/>
-        <line num="183" count="4" type="cond" truecount="0" falsecount="1"/>
+        <line num="182" count="3" type="stmt"/>
+        <line num="183" count="3" type="cond" truecount="0" falsecount="1"/>
         <line num="184" count="0" type="stmt"/>
         <line num="185" count="0" type="stmt"/>
-        <line num="187" count="4" type="stmt"/>
-        <line num="188" count="4" type="stmt"/>
-        <line num="189" count="4" type="stmt"/>
+        <line num="187" count="3" type="stmt"/>
+        <line num="188" count="3" type="stmt"/>
+        <line num="189" count="3" type="stmt"/>
         <line num="193" count="1" type="stmt"/>
       </file>
       <file name="base_controller.ts" path="C:\Projects\posts\Posts\src\controllers\base_controller.ts">
-        <metrics statements="36" coveredstatements="29" conditionals="5" coveredconditionals="4" methods="7" coveredmethods="6"/>
-        <line num="9" count="1" type="stmt"/>
+        <metrics statements="36" coveredstatements="11" conditionals="5" coveredconditionals="0" methods="7" coveredmethods="3"/>
+        <line num="9" count="2" type="stmt"/>
         <line num="12" count="3" type="stmt"/>
         <line num="13" count="3" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
         <line num="16" count="3" type="stmt"/>
         <line num="17" count="3" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="23" count="3" type="stmt"/>
-        <line num="24" count="3" type="cond" truecount="1" falsecount="0"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="stmt"/>
-        <line num="45" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="46" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="46" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
+        <line num="56" count="3" type="stmt"/>
+        <line num="57" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
-        <line num="65" count="1" type="stmt"/>
-        <line num="66" count="1" type="stmt"/>
-        <line num="67" count="1" type="stmt"/>
-        <line num="68" count="1" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
         <line num="78" count="1" type="stmt"/>
       </file>
-      <file name="post_controller.ts" path="C:\Projects\posts\Posts\src\controllers\post_controller.ts">
+      <file name="comment_controller.ts" path="C:\Projects\posts\Posts\src\controllers\comment_controller.ts">
         <metrics statements="10" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
@@ -221,9 +223,30 @@
         <line num="22" count="0" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
       </file>
+      <file name="post_controller.ts" path="C:\Projects\posts\Posts\src\controllers\post_controller.ts">
+        <metrics statements="10" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
     </package>
     <package name="src.models">
-      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="comment_model.ts" path="C:\Projects\posts\Posts\src\models\comment_model.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+      </file>
       <file name="post_model.ts" path="C:\Projects\posts\Posts\src\models\post_model.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -242,7 +265,7 @@
       </file>
     </package>
     <package name="src.routes">
-      <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <metrics statements="34" coveredstatements="29" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="1"/>
       <file name="auth_routes.ts" path="C:\Projects\posts\Posts\src\routes\auth_routes.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -254,19 +277,35 @@
         <line num="178" count="1" type="stmt"/>
         <line num="180" count="1" type="stmt"/>
       </file>
+      <file name="comment_routes.ts" path="C:\Projects\posts\Posts\src\routes\comment_routes.ts">
+        <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+      </file>
       <file name="post_routes.ts" path="C:\Projects\posts\Posts\src\routes\post_routes.ts">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="13" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
-        <line num="32" count="3" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
-        <line num="59" count="3" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
         <line num="112" count="1" type="stmt"/>
         <line num="151" count="1" type="stmt"/>
-        <line num="152" count="1" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
         <line num="176" count="1" type="stmt"/>
         <line num="178" count="1" type="stmt"/>
       </file>

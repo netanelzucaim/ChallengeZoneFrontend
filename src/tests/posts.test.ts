@@ -28,10 +28,10 @@ beforeAll(async ()=>{console.log("before all tests");
     const response = await request(app).post("/auth/login").send(userInfo)
     userInfo.token = response.body.accessToken;
     userInfo._id = response.body._id;
-    process.env.TOKEN_EXPIRATION = "3s"; // Overwrite TOKEN_EXPIRATION for tests
    
 });
 afterAll(async ()=> {
+    console.log("after all tests")
     await postModel.deleteMany();
     await userModel.deleteMany();
     mongoose.connection.close()}
@@ -40,6 +40,8 @@ afterAll(async ()=> {
 let postId = "";
 
 describe("Posts test", ()=>{
+    console.log("test 2")
+
     test("Test get all post empty",async ()=>{
     const response = await request(app).get("/posts");
     expect(response.statusCode).toBe(200)
@@ -67,8 +69,6 @@ describe("Posts test", ()=>{
     test("Posts Get By Id test", async () => {
         const response = await request(app).get("/posts/" + postId);
         const post = response.body;
-        console.log("/posts/" + postId);
-        console.log(post);
         expect(response.statusCode).toBe(200);
         expect(response.body._id).toBe(post._id);
       });

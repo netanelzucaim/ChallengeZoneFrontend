@@ -34,6 +34,7 @@ const userInfo: UserInfo = {
 
 describe("Auth Test", () => {
     test("Auth Registration", async () => {
+        console.log("test 1")
         const response = await request(app).post("/auth/register").send(userInfo);
         expect(response.body);
         expect(response.statusCode).toBe(201);

@@ -14,7 +14,7 @@ router.get("/", (req: Request, res: Response) => {
 router.get("/:id", (req, res) => {
     commentController.getById(req, res);
 });
-router.put("/:id", (req, res) => {
+router.put("/:id",authMiddleware, (req, res) => {
     commentController.updateById(req, res);
 });
 

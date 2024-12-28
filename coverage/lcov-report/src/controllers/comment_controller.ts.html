@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>9/10</span>
             </div>
         
             
@@ -89,66 +89,69 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import commentModel,{iComment} from "../models/comment_model";
-import createController from "./base_controller"
-const commentController = new createController&lt;iComment&gt;(commentModel)
-//TO DO: adjust it to inherit as done with postControlller
-export default commentController
+<span class="cline-any cline-yes">1x</span></td><td class="text"><pre class="prettyprint lang-js">//get all posts from database
+import commentModel, { iComment } from "../models/comment_model";
+import { Model } from "mongoose";
+import {Request,Response} from "express"
+import BaseController from "./base_controller";
 &nbsp;
-//TO DO : migrating to bae_controller
-// const getCommentsByPostId = async (req: Request,res:Response) =&gt; {
-//     const postId = req.params.id;
-//     if (postId) {
-//         try{
-//             const comments = await Comments.find({ postId: postId});
-//             if (comments.length &gt; 0) {
-//                 return res.send(comments);
-//             } else {
-//                 return res.status(404).send("There are no comments found");
-//             }
-//         } catch (err) {
-//             return res.status(400).send(err.message);
-//         }
-//     }
-//     return res.status(400).send(err.message);
-// };
+class CommentController extends BaseController&lt;iComment&gt; {
+    constructor(model: Model&lt;iComment&gt;) {
+        super(model);
+    }
+&nbsp;
+    async createItem(req: Request, res: Response) {
+        try {
+            const _id = req.query.userId;
+            const comment = {
+                ...req.body,
+                sender: _id
+            };
+            req.body = comment;
+            return super.createItem(req, res);
+        } catch (error) {
+<span class="cstat-no" title="statement not covered" >            res.status(400).send(error);</span>
+        }   
+    }
+}
 &nbsp;
 &nbsp;
-//TO DO : adding getCommentsByPostId
-// export default {getComments,getCommentsByPostId,createComment,deleteComment, updateCommentById}</pre></td></tr></table></pre>
+export default new CommentController(commentModel)</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-12-27T09:03:24.191Z
+                at 2024-12-28T15:26:48.653Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

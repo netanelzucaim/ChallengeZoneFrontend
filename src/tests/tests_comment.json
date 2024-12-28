@@ -1,7 +1,8 @@
 [
     {
-     "content": "Test post 1",
-     "postId": "67546a2c774902f87260f238",
-     "user": "Eliav"
-    }   
+     "comment": "Test Comment 1"
+    } ,
+    {
+        "comment": "Test Comment 2"
+     }   
 ]
