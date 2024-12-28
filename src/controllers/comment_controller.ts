@@ -1,27 +1,27 @@
-import commentModel,{iComment} from "../models/comment_model";
-import createController from "./base_controller"
-const commentController = new createController<iComment>(commentModel)
-//TO DO: adjust it to inherit as done with postControlller
-export default commentController
+//get all posts from database
+import commentModel, { iComment } from "../models/comment_model";
+import { Model } from "mongoose";
+import {Request,Response} from "express"
+import BaseController from "./base_controller";
 
-//TO DO : migrating to bae_controller
-// const getCommentsByPostId = async (req: Request,res:Response) => {
-//     const postId = req.params.id;
-//     if (postId) {
-//         try{
-//             const comments = await Comments.find({ postId: postId});
-//             if (comments.length > 0) {
-//                 return res.send(comments);
-//             } else {
-//                 return res.status(404).send("There are no comments found");
-//             }
-//         } catch (err) {
-//             return res.status(400).send(err.message);
-//         }
-//     }
-//     return res.status(400).send(err.message);
-// };
+class CommentController extends BaseController<iComment> {
+    constructor(model: Model<iComment>) {
+        super(model);
+    }
 
+    async createItem(req: Request, res: Response) {
+        try {
+            const _id = req.query.userId;
+            const comment = {
+                ...req.body,
+                sender: _id
+            };
+            req.body = comment;
+            return super.createItem(req, res);
+        } catch (error) {
+            res.status(400).send(error);
+        }   
+    }
+}
 
-//TO DO : adding getCommentsByPostId
-// export default {getComments,getCommentsByPostId,createComment,deleteComment, updateCommentById}
+export default new CommentController(commentModel)

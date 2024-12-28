@@ -28,10 +28,10 @@ beforeAll(async ()=>{console.log("before all tests");
     const response = await request(app).post("/auth/login").send(userInfo)
     userInfo.token = response.body.accessToken;
     userInfo._id = response.body._id;
-    process.env.TOKEN_EXPIRATION = "3s"; // Overwrite TOKEN_EXPIRATION for tests
    
 });
 afterAll(async ()=> {
+    console.log("after all tests")
     await postModel.deleteMany();
     await userModel.deleteMany();
     mongoose.connection.close()}
@@ -40,13 +40,13 @@ afterAll(async ()=> {
 let postId = "";
 
 describe("Posts test", ()=>{
-    test("Test get all post empty",async ()=>{
+    test("Get all posts empty",async ()=>{
     const response = await request(app).get("/posts");
     expect(response.statusCode).toBe(200)
     expect(response.body.length).toBe(0)
     })
 
-    test("Test create a new post",async ()=>{
+    test("Create new posts",async ()=>{
         for(const post of testPosts){
         const response = await request(app).post("/posts").set("authorization","JWT "+ userInfo.token).send(post);
         expect(response.statusCode).toBe(201);
@@ -56,7 +56,7 @@ describe("Posts test", ()=>{
         postId = response.body._id;
     }
     })    
-    test("Test update post",async ()=>{
+    test("Update post",async ()=>{
 
         const response = await request(app).put("/posts/"+ postId).set("authorization","JWT "+ userInfo.token).send( {"title": "Test post 2 updated"}
         );
@@ -64,11 +64,9 @@ describe("Posts test", ()=>{
         expect(response.body.title).toBe("Test post 2 updated");
         expect(response.body.content).toBe(testPosts[testPosts.length-1].content);
     })  
-    test("Posts Get By Id test", async () => {
+    test("Get post By Id", async () => {
         const response = await request(app).get("/posts/" + postId);
         const post = response.body;
-        console.log("/posts/" + postId);
-        console.log(post);
         expect(response.statusCode).toBe(200);
         expect(response.body._id).toBe(post._id);
       });
@@ -78,12 +76,12 @@ describe("Posts test", ()=>{
         expect(response.statusCode).toBe(400);
       });    
 
-      test("Test get all post full",async ()=>{
+      test("Get all post full",async ()=>{
         const response = await request(app).get("/posts");
         expect(response.statusCode).toBe(200)
         expect(response.body.length).toBe(testPosts.length)
         })
-    test("Test filter post by sender",async ()=>{
+    test("Get post by sender",async ()=>{
         const response = await request(app).get("/posts?sender=" + userInfo._id);
         const posts =   response.body;
         for(const post of posts){
@@ -92,17 +90,17 @@ describe("Posts test", ()=>{
         expect(response.statusCode).toBe(200)
         expect(response.body.length).toBe(testPosts.length)
     })    
-    test("Test delete post by id",async ()=>{
-        const response = await request(app).delete("/posts/"+postId).set("authorization","JWT "+ userInfo.token); 
-        expect(response.statusCode).toBe(200)
-        const responseGet = await request(app).get("/posts/"+postId)
-        expect(responseGet.statusCode).toBe(404)
-    })    
-    test("Test create a new post failed",async ()=>{
+    test("Create a new post failed",async ()=>{
         const response = await request(app).post("/posts").send({
             title: "Test Post 1",
         });
         expect(response.statusCode).not.toBe(200);        
     })
     
+    test("Delete post by Id  (must be last otherwise update or get won't work)",async ()=>{
+        const response = await request(app).delete("/posts/"+postId).set("authorization","JWT "+ userInfo.token); 
+        expect(response.statusCode).toBe(200)
+        const responseGet = await request(app).get("/posts/"+postId)
+        expect(responseGet.statusCode).toBe(404)
+    })    
 });

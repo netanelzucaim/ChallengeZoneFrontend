@@ -169,6 +169,7 @@ type TokenPayload = {
 };
 
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
+    try{
     const authHeader = req.headers["authorization"];
     const token = authHeader && authHeader.split(" ")[1];
     if (!token) {
@@ -188,6 +189,9 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
         req.query.userId = payload._id;
         next();
     });
+}catch(err){    
+    res.status(400).send(err);
+}
 };
 
 export default { register, login, logout, refresh };

@@ -6,6 +6,7 @@
   "scripts": {
     "testAuth": "tsc && jest --detectOpenHandles --forceExit --coverage auth.test.ts  --runInBand",
     "testPost": "tsc && jest --detectOpenHandles --forceExit --coverage posts.test.ts --runInBand",
+    "testComment": "tsc && jest --detectOpenHandles --forceExit --coverage comments.test.ts --runInBand",
     "test": "tsc && jest --detectOpenHandles --forceExit  --coverage  --runInBand ",
     "dev": "nodemon ./src/app.ts",
     "start": "tsc && node ./dist/app.js",

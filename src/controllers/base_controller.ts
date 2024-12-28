@@ -54,8 +54,8 @@ class BaseController<T> {
 
     async createItem(req: Request,res:Response) {
         try {
-            const post = await this.model.create(req.body);
-            res.status(201).send(post);
+            const data = await this.model.create(req.body);
+            res.status(201).send(data);
         } catch (err) {
             res.status(400).send(err);
         }
