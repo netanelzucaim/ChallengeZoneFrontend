@@ -13,11 +13,11 @@
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "SWA: Run front_d",
+            "name": "SWA: Run ChallengeZoneFrontend",
             "request": "launch",
             "type": "pwa-chrome",
             "url": "http://localhost:4280",
-            "preLaunchTask": "swa: start front_d",
+            "preLaunchTask": "swa: start ChallengeZoneFrontend",
             "webRoot": "${workspaceFolder}/",
             "timeout": 30000
         }

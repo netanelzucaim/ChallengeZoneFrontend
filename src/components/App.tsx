@@ -1,9 +1,11 @@
 // import RegistrationForm from "./RegistrationForm"
-import PostForm from "./PostForm"
+import LoginForm from "./LoginForm"
+import RegistrationForm from "./RegistrationForm"
 function App() {
   return (
     <div>
-      <PostForm />
+      <RegistrationForm/>  
+      <LoginForm />
     </div>
   )
 }
