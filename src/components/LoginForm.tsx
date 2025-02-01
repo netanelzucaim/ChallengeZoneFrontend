@@ -1,78 +1,66 @@
-import { FC} from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import userService, { User } from "../services/user_service";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface FormData {
   username: string;
   password: string;
-
 }
+
 const LoginForm: FC = () => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
+  const navigate = useNavigate();
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-        const user: User = {
-          username: data.username,
-          password: data.password,
-        };
-        const { request } = userService.login(user);
-        request
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error(error);
-          });  
+    const user: User = {
+      username: data.username,
+      password: data.password,
+    };
+    const { request } = userService.login(user);
+    request
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
-
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          width: "100vw",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            backgroundColor: "lightgray",
-            padding: "10px",
-            margin: "10px",
-            borderRadius: "5px",
-            width: "50%",
-            justifyContent: "center",
-            gap: "5px",
-          }}
-        >
-          <h2 style={{ alignSelf: "center" }}>Login Form</h2>
-          <label>username:</label>
-          <input
-            {...register("username")}
-            type="text"
-            className="form-control"
-          />
-          <label>password:</label>
-          <input
-            {...register("password")}
-            type="password"
-            className="form-control"
-          />
-          <button type="submit" className="btn btn-outline-primary mt-3">
-            Login
-          </button>
+    <div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="card p-4 shadow-sm" style={{ width: '350px' }}>
+        <h2 className="text-center">Challenge Zone</h2>
+        <p className="text-center text-muted">Sign in</p>
+        <p className="text-center text-muted">Enter your username and sign in</p>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Username"
+              {...register("username", { required: "Username is required" })}
+            />
+            {errors.username && <small className="text-danger">{errors.username.message}</small>}
+          </div>
+          <div className="mb-3">
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              {...register("password", { required: "Password is required" })}
+            />
+            {errors.password && <small className="text-danger">{errors.password.message}</small>}
+          </div>
+          <button type="submit" className="btn btn-dark w-100">Continue</button>
+        </form>
+        <div className="text-center mt-3">
+          <p className="text-muted">Don't have an account? <a href="#" className="text-dark" onClick={() => navigate('/register')}>Sign up</a></p>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
