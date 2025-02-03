@@ -2,8 +2,16 @@ import ItemsList from "./ItemsList"
 import { useEffect, useState } from "react"
 import postsService, { CanceledError } from "../services/posts_service"
 
+interface Post {
+  _id: string,
+  title: string,
+  content: string,
+  sender: string,
+  avatarUrl: string
+}
+
 function PostList() {
-  const [items, setItems] = useState<string[]>([])
+  const [items, setItems] = useState<Post[]>([])
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -13,7 +21,7 @@ function PostList() {
     const { request, abort } = postsService.getPosts()
     request.then((response) => {
       console.log(response.data)
-      setItems(response.data.map((item) => item.title))
+      setItems(response.data as any)
       setIsLoading(false)
     }).catch((error) => {
       if (!(error instanceof CanceledError)) {

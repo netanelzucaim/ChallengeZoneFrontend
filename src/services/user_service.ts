@@ -1,6 +1,5 @@
 import apiClient, { CanceledError } from "./api-client";
 
-
 export { CanceledError }
 
 export interface User {
@@ -37,7 +36,12 @@ const uploadImage = (img: File) => {
     return { request }
 }
 
+const getImage = async (filename: string): Promise<string> => {
+    const response = await apiClient.get(`/file/${filename}`, {
+        responseType: 'blob'
+    });
+    const url = URL.createObjectURL(response.data);
+    return url;
+}
 
-
-
-export default { register,login, uploadImage }
+export default { register,login, uploadImage, getImage }

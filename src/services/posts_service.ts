@@ -17,12 +17,12 @@ const getPosts = () => {
     return { request, abort: () => abortController.abort() }
 }
 
-const addPost = () => {
-    const abortController = new AbortController()
-    const request = apiClient.post<Post[]>('/posts',
-        { signal: abortController.signal })
-    return { request, abort: () => abortController.abort() }
-}
+// const addPost = () => {
+//     const abortController = new AbortController()
+//     const request = apiClient.post<Post[]>('/posts',
+//         { signal: abortController.signal })
+//     return { request, abort: () => abortController.abort() }
+// }
 
 
 export default { getPosts }

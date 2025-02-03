@@ -1,12 +1,19 @@
 import { useState } from "react";
 
-interface ItemsListProps {
+interface Post {
+    _id: string,
     title: string,
-    items: string[],
+    content: string,
+    sender: string,
+    avatarUrl: string
+}
+
+interface ItemsListProps {
+    items: Post[],
     onItemSelected: (index: number) => void
 }
 
-function ItemsList({ title, items, onItemSelected }: ItemsListProps) {
+function ItemsList({ items, onItemSelected }: ItemsListProps) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [render, setRender] = useState(0);
 
@@ -19,7 +26,6 @@ function ItemsList({ title, items, onItemSelected }: ItemsListProps) {
 
     const onAdd = () => {
         console.log("add")
-        items.push("A new item");
         setRender(render + 1);
     }
 
@@ -30,25 +36,32 @@ function ItemsList({ title, items, onItemSelected }: ItemsListProps) {
 
     return (
         <>
-            <h2>{title}</h2>
-            {items.length == 0 && <p>No items</p>}
-            {items.length != 0 &&
+            {items.length === 0 && <p>No items</p>}
+            {items.length !== 0 &&
                 <ul className="list-group">
-                    {items.map((item, index) => {
-                        return <li
+                    {items.map((item, index) => (
+                        <li
                             key={index}
-                            className={selectedIndex == index ? "list-group-item active" : "list-group-item"}
+                            className={`list-group-item ${selectedIndex === index ? "active" : ""}`}
                             onClick={() => { onSelect(index) }}
                         >
-                            {index}: {item}
+                            <div className="d-flex align-items-center">
+                                <img src={item.avatarUrl} alt="avatar" className="rounded-circle me-3" style={{ width: '50px', height: '50px' }} />
+                                <div>
+                                    <h5 className="mb-1">{item.sender}</h5>
+                                </div>
+                            </div>
+                            <img src={item.avatarUrl} alt="avatar" className="img-fluid mt-2" />
+                            <p className="mb-1">{item.content}</p>
+
                         </li>
-                    })}
-                </ul >}
-            <button className="btn btn-primary m-3" onClick={() => { onAdd() }}>Add</button>
-            <button className="btn btn-primary" onClick={() => { onSelectComplete() }}>Select</button>
+                    ))}
+                </ul>
+            }
+            <button className="btn btn-primary m-3" onClick={onAdd}>Add</button>
+            <button className="btn btn-primary" onClick={onSelectComplete}>Select</button>
         </>
     );
-
 }
 
 export default ItemsList;
