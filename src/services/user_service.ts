@@ -1,6 +1,5 @@
 import apiClient, { CanceledError } from "./api-client";
 
-
 export { CanceledError }
 
 export interface User {
@@ -10,34 +9,21 @@ export interface User {
     avatar?: string
 }
 
-const register = (user: User) => {
-    const abortController = new AbortController()
-    const request = apiClient.post<User>('/auth/register',
-        user,
-        { signal: abortController.signal })
-    return { request, abort: () => abortController.abort() }
-}
-const login = (user: User) => {
-    const abortController = new AbortController()
-    const request = apiClient.post<User>('/auth/login',
-        user,
-        { signal: abortController.signal })
-    return { request, abort: () => abortController.abort() }
+const register = async (user: User) => {
+    const abortController = new AbortController();
+    const request = await apiClient.post('/auth/register', user, { signal: abortController.signal });
+    return { request, abort: () => abortController.abort() };
 }
 
-const uploadImage = (img: File) => {
-    // const abortController = new AbortController()
-    const formData = new FormData();
-    formData.append("file", img);
-    const request = apiClient.post('/file?file=' + img.name, formData, {
-        headers: {
-            'Content-Type': 'image/*'
-        }
-    })
-    return { request }
+const login = async (user: User) => {
+    const abortController = new AbortController();
+    const response = await apiClient.post('/auth/login', user, { signal: abortController.signal });
+    const { accessToken, refreshToken } = response.data;
+    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    return response.data;
 }
 
 
 
-
-export default { register,login, uploadImage }
+export default { register, login };
