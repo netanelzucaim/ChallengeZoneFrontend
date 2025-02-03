@@ -19,10 +19,10 @@ const LoginForm: FC = () => {
       username: data.username,
       password: data.password,
     };
-    const { request } = userService.login(user);
-    request
+    userService.login(user)
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
+        navigate('/home'); // Navigate to /home on successful login
       })
       .catch((error) => {
         console.error(error);

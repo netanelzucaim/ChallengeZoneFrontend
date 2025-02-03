@@ -2,10 +2,11 @@ import { useState } from "react";
 
 interface Post {
     _id: string,
-    title: string,
     content: string,
     sender: string,
-    avatarUrl: string
+    avatarUrl: string,
+    postPic: string,
+    username: string
 }
 
 interface ItemsListProps {
@@ -48,10 +49,10 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
                             <div className="d-flex align-items-center">
                                 <img src={item.avatarUrl} alt="avatar" className="rounded-circle me-3" style={{ width: '50px', height: '50px' }} />
                                 <div>
-                                    <h5 className="mb-1">{item.sender}</h5>
+                                    <h5 className="mb-1">{item.username}    </h5>
                                 </div>
                             </div>
-                            <img src={item.avatarUrl} alt="avatar" className="img-fluid mt-2" />
+                            <img src={item.postPic} alt="avatar" className="img-fluid mt-2" />
                             <p className="mb-1">{item.content}</p>
 
                         </li>

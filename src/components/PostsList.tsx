@@ -18,7 +18,7 @@ function PostList() {
   useEffect(() => {
     console.log('useEffect')
     setIsLoading(true)
-    const { request, abort } = postsService.getPosts()
+    const { request, abort } = postsService.getPostsForUser()
     request.then((response) => {
       console.log(response.data)
       setItems(response.data as any)
@@ -38,7 +38,7 @@ function PostList() {
     <div className="m-3">
       {isLoading && <p>Loading...</p>}
       {error && <div className="alert alert-danger">{error}</div>}
-      <ItemsList items={items} title="Posts" onItemSelected={() => { }} />
+      <ItemsList items={items} onItemSelected={() => { }} />
     </div>
   )
 }

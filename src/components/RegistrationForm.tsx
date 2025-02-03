@@ -5,7 +5,7 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import userService, { User } from "../services/user_service";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import imageService from "../services/image_service";
 interface FormData {
   username: string;
   password: string;
@@ -21,7 +21,7 @@ const RegistrationForm: FC = () => {
 
   const onSubmit = (data: FormData) => {
     console.log(data);
-    const { request } = userService.uploadImage(data.img[0]);
+    const { request } = imageService.uploadImage(data.img[0]);
     request
       .then((response) => {
         console.log(response.data);
