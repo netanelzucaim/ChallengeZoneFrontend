@@ -5,7 +5,7 @@ interface Post {
     content: string,
     sender: string,
     avatarUrl: string,
-    postPic: string,
+    postPic?: string, // Make postPic optional
     username: string
 }
 
@@ -49,12 +49,11 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
                             <div className="d-flex align-items-center">
                                 <img src={item.avatarUrl} alt="avatar" className="rounded-circle me-3" style={{ width: '50px', height: '50px' }} />
                                 <div>
-                                    <h5 className="mb-1">{item.username}    </h5>
+                                    <h5 className="mb-1">{item.username}</h5>
                                 </div>
                             </div>
-                            <img src={item.postPic} alt="avatar" className="img-fluid mt-2" />
+                            {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2" />}
                             <p className="mb-1">{item.content}</p>
-
                         </li>
                     ))}
                 </ul>

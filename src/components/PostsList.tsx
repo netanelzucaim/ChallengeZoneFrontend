@@ -18,7 +18,7 @@ function PostList() {
   useEffect(() => {
     console.log('useEffect')
     setIsLoading(true)
-    const { request, abort } = postsService.getPostsForUser()
+    const { request, abort } = postsService.getPosts()
     request.then((response) => {
       console.log(response.data)
       setItems(response.data as any)

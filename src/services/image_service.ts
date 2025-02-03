@@ -18,4 +18,7 @@ const getImage = async (filename: string): Promise<string> => {
     const url = URL.createObjectURL(response.data);
     return url;
 }
-export default { uploadImage, getImage };
+
+
+
+export default { uploadImage, getImage};
