@@ -18,12 +18,19 @@ const register = async (user: User) => {
 const login = async (user: User) => {
     const abortController = new AbortController();
     const response = await apiClient.post('/auth/login', user, { signal: abortController.signal });
-    const { accessToken, refreshToken } = response.data;
+    const { accessToken, refreshToken,_id } = response.data;
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('userId',_id );
     return response.data;
+}
+const getUser = (userId: string) => {
+    const abortController = new AbortController();
+    const request = apiClient.get<Comment>(`/users/${userId}`, {
+        signal: abortController.signal
+    });
+    return { request, abort: () => abortController.abort() };
 }
 
 
-
-export default { register, login };
+export default { register, login, getUser };

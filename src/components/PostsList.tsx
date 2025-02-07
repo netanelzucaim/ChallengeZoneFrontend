@@ -4,10 +4,11 @@ import postsService, { CanceledError } from "../services/posts_service"
 
 interface Post {
   _id: string,
-  title: string,
+  postPic: string,
   content: string,
   sender: string,
-  avatarUrl: string
+  username?: string,
+  avatarUrl?: string
 }
 
 function PostList() {
@@ -18,19 +19,17 @@ function PostList() {
   useEffect(() => {
     console.log('useEffect')
     setIsLoading(true)
-    const { request, abort } = postsService.getPosts()
-    request.then((response) => {
-      console.log(response.data)
-      setItems(response.data as any)
+    postsService.getPosts().then(({ data, abort }) => {
+      setItems(data)
       setIsLoading(false)
-    }).catch((error) => {
+      return () => { abort() }
+    }).catch((error: unknown) => {
       if (!(error instanceof CanceledError)) {
         console.error(error)
         setError('Error fetching data...')
         setIsLoading(false)
       }
     })
-    return () => { abort() }
   }, [])
 
   console.log('App rendered')
