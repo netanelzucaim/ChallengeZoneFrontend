@@ -3,6 +3,7 @@ import postsService from "../services/posts_service";
 import commentsService from "../services/comments_service";
 import CommentsModal from "./CommentsModal";
 import PostFormModal from "./PostFormModal";
+import LikesModal from "./LikesModal";
 import imageService from "../services/image_service";
 
 interface Post {
@@ -13,6 +14,7 @@ interface Post {
   postPic?: string; // Make postPic optional
   username: string;
   comments: string[]; // Add comments array
+  likes: string[]; // Add likes array
 }
 
 interface Comment {
@@ -36,10 +38,12 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
   const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
   const [showCommentsModal, setShowCommentsModal] = useState(false);
   const [showPostFormModal, setShowPostFormModal] = useState(false);
+  const [showLikesModal, setShowLikesModal] = useState(false);
   const [currentPostId, setCurrentPostId] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editContent, setEditContent] = useState<string>('');
   const [editPostPic, setEditPostPic] = useState<File | null>(null);
+  const [likesUserIds, setLikesUserIds] = useState<string[]>([]);
 
   useEffect(() => {
     setPostItems(items);
@@ -94,6 +98,23 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
       fetchPosts(); // Refresh the posts list after updating the post
     } catch (error) {
       console.error("Failed to update post", error);
+    }
+  };
+
+  const handleLikePost = async (postId: string) => {
+    try {
+      await postsService.addLikeToPost(postId);
+      fetchPosts(); // Refresh the posts list after liking the post
+    } catch (error) {
+      console.error("Failed to like post", error);
+    }
+  };
+  const handleUnlikePost = async (postId: string) => {
+    try {
+      await postsService.removeLikeFromPost(postId);
+      fetchPosts(); // Refresh the posts list after liking the post
+    } catch (error) {
+      console.error("Failed to like post", error);
     }
   };
 
@@ -159,6 +180,16 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
     setCurrentPostId(null);
   };
 
+  const handleShowLikesModal = (userIds: string[]) => {
+    setLikesUserIds(userIds);
+    setShowLikesModal(true);
+  };
+
+  const handleCloseLikesModal = () => {
+    setShowLikesModal(false);
+    setLikesUserIds([]);
+  };
+
   const handleClosePostFormModal = () => {
     setShowPostFormModal(false);
   };
@@ -199,9 +230,18 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
                 >
                   Comments
                 </span>
-                : {comments[item._id] ? comments[item._id].length : 0}
+                : {comments[item._id] ? comments[item._id].length : 0} | 
+                <span
+                  style={{ cursor: "pointer", textDecoration: "underline" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleShowLikesModal(item.likes);
+                  }}
+                >
+                  Likes: {item.likes.length}
+                </span>
               </p>
-              {/* Display number of comments */}
+              {/* Display number of comments and likes */}
               <div className="mt-2">
                 <input
                   type="text"
@@ -213,6 +253,12 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
                 />
                 <button className="btn btn-primary btn-sm" onClick={() => handleAddComment(item._id)}>
                   Add Comment
+                </button>
+                <button
+                className={`btn btn-sm ms-2 ${userId && item.likes.includes(userId) ? 'btn-success' : 'btn-outline-primary'}`}
+                onClick={() => userId && (item.likes.includes(userId) ? handleUnlikePost(item._id) : handleLikePost(item._id))}
+                >
+                {item.likes.includes(userId) ? 'Liked' : 'Like'}
                 </button>
               </div>
               {userId === item.sender && (
@@ -254,6 +300,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
         />
       )}
       <PostFormModal show={showPostFormModal} handleClose={handleClosePostFormModal} onPostAdded={handlePostAdded} />
+      <LikesModal show={showLikesModal} handleClose={handleCloseLikesModal} userIds={likesUserIds} />
       {isEditing && (
         <div className="modal show d-block" tabIndex={-1}>
           <div className="modal-dialog">

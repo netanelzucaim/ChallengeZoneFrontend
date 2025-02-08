@@ -11,7 +11,8 @@ interface Post {
     sender: string,
     username?: string, // Add username field
     avatarUrl?: string, // Add avatarUrl field
-    comments: string[]
+    comments: string[],
+    likes: string[]
 }
 
 const getPosts = async () => {
@@ -128,4 +129,65 @@ const updatePost = (postId: string, updatedPost: { content: string, postPic?: st
     return { request, abort: () => abortController.abort() };
 }
 
-export default { getPosts, getPostsForUser, deletePost, addPost, getCommentsForPost, updatePost };
+const addLikeToPost = async (postId: string) => {
+    const abortController = new AbortController();
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+        throw new Error("User not found");
+    }
+    try {
+        const { data: post } = await getPost(postId);
+        if (!post.likes.includes(userId)) {
+            post.likes.push(userId);
+            const token = localStorage.getItem('accessToken');
+            await apiClient.put(`/posts/${postId}`, { likes: post.likes }, {
+                signal: abortController.signal,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Failed to add like to post', error);
+        throw error;
+    }
+}
+
+const removeLikeFromPost = async (postId: string) => {
+    const abortController = new AbortController();
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+        throw new Error("User not found");
+    }
+    try {
+        const { data: post } = await getPost(postId);
+        if (post.likes.includes(userId)) {
+            post.likes = post.likes.filter(id => id !== userId);
+            const token = localStorage.getItem('accessToken');
+            await apiClient.put(`/posts/${postId}`, { likes: post.likes }, {
+                signal: abortController.signal,
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        }
+    } catch (error) {
+        console.error('Failed to remove like from post', error);
+        throw error;
+    }
+}
+
+const getPost = async (postId: string) => {
+    const abortController = new AbortController();
+    try {
+        const response = await apiClient.get(`/posts/${postId}`, {
+            signal: abortController.signal
+        });
+       return { data: response.data, abort: () => abortController.abort() };
+    } catch (error) {
+        console.error('Failed to fetch post', error);
+        throw error;
+    }
+}
+
+export default { getPosts, getPostsForUser, deletePost, addPost, getCommentsForPost, updatePost, addLikeToPost, removeLikeFromPost };
