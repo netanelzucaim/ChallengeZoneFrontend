@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import userService from "../services/user_service";
 import avatar from "../assets/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,10 +20,11 @@ const RegistrationForm: FC = () => {
   const { register, handleSubmit, watch } = useForm<FormData>();
   const [img] = watch(["img"]);
   const inputFileRef: { current: HTMLInputElement | null } = { current: null };
+  const navigate = useNavigate();
 
   const onSubmit = async (data: FormData) => {
     try {
-      let avatarUrl ='';
+      let avatarUrl = '';
       if (data.img && data.img[0]) {
         const { request } = imageService.uploadImage(data.img[0]);
         const response = await request;
@@ -38,6 +40,9 @@ const RegistrationForm: FC = () => {
       const { request } = userService.register(user);
       await request;
       console.log('User registered successfully');
+
+      // Redirect to the login screen after successful registration
+      navigate("/login");
     } catch (error: any) {
       if (error.response && error.response.status === 409) {
         setErrorMessage(error.response.data);

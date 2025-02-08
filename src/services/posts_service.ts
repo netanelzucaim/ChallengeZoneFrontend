@@ -50,9 +50,8 @@ const getCommentsForPost = async (postId: string) => {
         const post = response.data;
         const commentPromises = post.comments.map(async (commentId: string) => {
             try {
-                const { request } = commentsService.getComment(commentId);
-                const response = await request;
-                return response.data;
+                const { data } = await commentsService.getComment(commentId);
+                return data;
             } catch (error) {
                 console.error(`Failed to fetch comment with ID ${commentId}`, error);
                 return null;

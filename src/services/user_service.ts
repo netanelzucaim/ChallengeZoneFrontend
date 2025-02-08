@@ -32,5 +32,26 @@ const getUser = (userId: string) => {
     return { request, abort: () => abortController.abort() };
 }
 
+const logout = async () => {
+    const abortController = new AbortController();
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (!refreshToken) {
+        throw new Error("No refresh token found");
+    }
+    try {
+        await apiClient.post('/auth/logout', { refreshToken }, {
+            signal: abortController.signal,
+            headers: {
+                Authorization: `Bearer ${refreshToken}`
+            }
+        });
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userId');
+    } catch (error) {
+        console.error('Failed to logout', error);
+        throw error;
+    }
+}
 
-export default { register, login, getUser };
+export default { register, login, getUser,logout };

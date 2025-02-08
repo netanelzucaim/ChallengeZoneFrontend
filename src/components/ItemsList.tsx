@@ -31,6 +31,7 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [postItems, setPostItems] = useState<Post[]>(items);
     const [comments, setComments] = useState<{ [key: string]: Comment[] }>({});
+    const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
         setPostItems(items);
@@ -69,7 +70,7 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
 
     const fetchComments = async (postId: string) => {
         try {
-            const { data } = await commentsService.getComments(postId);
+            const { data } = await postsService.getCommentsForPost(postId);
             setComments(prevState => ({
                 ...prevState,
                 [postId]: data
@@ -95,6 +96,28 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
         }));
     };
 
+    const handleUpdateComment = (postId: string, commentId: string, updatedComment: string) => {
+        setComments(prevState => ({
+            ...prevState,
+            [postId]: prevState[postId].map(comment => comment._id === commentId ? { ...comment, comment: updatedComment } : comment)
+        }));
+    };
+
+    const handleAddComment = async (postId: string) => {
+        try {
+            const { data } = await commentsService.addComment(postId, newComment[postId]);
+            setNewComment(prevState => ({
+                ...prevState,
+                [postId]: ''
+            }));
+            fetchComments(postId); // Fetch comments again to re-render
+        } catch (error) {
+            console.error('Failed to add comment', error);
+        }
+    };
+
+    const userId = localStorage.getItem('userId');
+
     return (
         <>
             {postItems.length === 0 && <p>No items</p>}
@@ -117,8 +140,19 @@ function ItemsList({ items, onItemSelected }: ItemsListProps) {
                             <p className="text-muted">
                                 Comments: {comments[item._id] ? comments[item._id].length : 0}
                             </p> {/* Display number of comments */}
-                            {comments[item._id] && <Comments comments={comments[item._id]} onDeleteComment={(commentId) => handleDeleteComment(item._id, commentId)} />} {/* Render Comments component */}
-                            <button className="btn btn-danger mt-2" onClick={(e) => { e.stopPropagation(); onDelete(item._id); }}>Delete</button>
+                            {comments[item._id] && <Comments comments={comments[item._id]} onDeleteComment={(commentId) => handleDeleteComment(item._id, commentId)} onUpdateComment={(commentId, updatedComment) => handleUpdateComment(item._id, commentId, updatedComment)} />} {/* Render Comments component */}
+                            <div className="mt-2">
+                                <input
+                                    type="text"
+                                    value={newComment[item._id] || ''}
+                                    onChange={(e) => setNewComment(prevState => ({ ...prevState, [item._id]: e.target.value }))}
+                                    placeholder="Add a comment"
+                                />
+                                <button className="btn btn-primary btn-sm" onClick={() => handleAddComment(item._id)}>Add Comment</button>
+                            </div>
+                            {userId === item.sender && (
+                                <button className="btn btn-danger mt-2" onClick={(e) => { e.stopPropagation(); onDelete(item._id); }}>Delete</button>
+                            )}
                         </li>
                     ))}
                 </ul>
