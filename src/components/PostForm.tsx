@@ -7,17 +7,12 @@ import avatar from "../assets/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import userService from '../services/user_service';
 import imageService from '../services/image_service';
-
 
 const schema = z.object({
     content: z.string()
         .nonempty("Content is required")
         .min(3, "Content must be at least 3 characters"),
-    // age: z.number({ invalid_type_error: "Age is required" })
-    //     .int()
-    //     .min(18),
     img: z.instanceof(FileList).optional()
 });
 

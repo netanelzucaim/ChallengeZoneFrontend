@@ -30,15 +30,19 @@ apiClient.interceptors.response.use(
             if (refreshToken) {
                 try {
                     const response = await axios.post('http://localhost:3060/auth/refresh', { refreshToken });
-                    const { accessToken, refreshToken: newRefreshToken } = response.data;
+                    const { accessToken, refreshToken: newRefreshToken,_id } = response.data;
                     localStorage.setItem('accessToken', accessToken);
                     localStorage.setItem('refreshToken', newRefreshToken);
+                    localStorage.setItem('userId',_id );
+
                     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
                     return apiClient(originalRequest);
                 } catch (err) {
                     console.error('Refresh token expired or invalid', err);
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
+                    localStorage.removeItem('userId');
+
                     window.location.href = '/login'; // Redirect to login page
                 }
             } else {
