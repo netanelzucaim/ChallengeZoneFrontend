@@ -15,6 +15,7 @@ interface Post {
   username: string;
   comments: string[]; // Add comments array
   likes: string[]; // Add likes array
+  createdAt: string; // Add createdAt field
 }
 
 interface Comment {
@@ -109,12 +110,13 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
       console.error("Failed to like post", error);
     }
   };
+
   const handleUnlikePost = async (postId: string) => {
     try {
       await postsService.removeLikeFromPost(postId);
-      fetchPosts(); // Refresh the posts list after liking the post
+      fetchPosts(); // Refresh the posts list after unliking the post
     } catch (error) {
-      console.error("Failed to like post", error);
+      console.error("Failed to unlike post", error);
     }
   };
 
@@ -205,86 +207,89 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
       {postItems.length === 0 && <p>No items</p>}
       {postItems.length !== 0 && (
         <ul className="list-group">
-          {postItems.map((item, index) => (
-            <li key={index} className="list-group-item">
-              <div className="d-flex align-items-center">
-                <img
-                  src={item.avatarUrl}
-                  alt="avatar"
-                  className="rounded-circle me-3"
-                  style={{ width: "50px", height: "50px" }}
-                />
-                <div>
-                  <h5 className="mb-1">{item.username}</h5>
+          {postItems.map((item, index) => {
+            const formattedDateTime = new Date(item.createdAt).toLocaleString();
+            return (
+              <li key={index} className="list-group-item">
+                <div className="d-flex align-items-center">
+                  <img
+                    src={item.avatarUrl}
+                    alt="avatar"
+                    className="rounded-circle me-3"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                  <div>
+                    <h5 className="mb-1">{item.username}</h5>
+                  </div>
                 </div>
-              </div>
-              {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2" />}
-              <p className="mb-1">{item.content}</p>
-              <p className="text-muted">
-                <span
-                  style={{ cursor: "pointer", textDecoration: "underline" }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShowCommentsModal(item._id);
-                  }}
-                >
-                  Comments
-                </span>
-                : {comments[item._id] ? comments[item._id].length : 0} | 
-                <span
-                  style={{ cursor: "pointer", textDecoration: "underline" }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShowLikesModal(item.likes);
-                  }}
-                >
-                  Likes: {item.likes.length}
-                </span>
-              </p>
-              {/* Display number of comments and likes */}
-              <div className="mt-2">
-                <input
-                  type="text"
-                  value={newComment[item._id] || ""}
-                  onChange={(e) =>
-                    setNewComment((prevState) => ({ ...prevState, [item._id]: e.target.value }))
-                  }
-                  placeholder="Add a comment"
-                />
-                <button className="btn btn-primary btn-sm" onClick={() => handleAddComment(item._id)}>
-                  Add Comment
-                </button>
-                <button
-                className={`btn btn-sm ms-2 ${userId && item.likes.includes(userId) ? 'btn-success' : 'btn-outline-primary'}`}
-                onClick={() => userId && (item.likes.includes(userId) ? handleUnlikePost(item._id) : handleLikePost(item._id))}
-                >
-                {item.likes.includes(userId) ? 'Liked' : 'Like'}
-                </button>
-              </div>
-              {userId === item.sender && (
-                <>
-                  <button
-                    className="btn btn-danger mt-2 me-2"
+                {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2" />}
+                <p className="mb-1">{item.content}</p>
+                <p className="text-muted">{formattedDateTime}</p> {/* Display the formatted date and time */}
+                <p className="text-muted">
+                  <span
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      onDelete(item._id);
+                      handleShowCommentsModal(item._id);
                     }}
                   >
-                    Delete
-                  </button>
-                  <button
-                    className="btn btn-secondary mt-2"
+                    Comments
+                  </span>
+                  : {comments[item._id] ? comments[item._id].length : 0} | 
+                  <span
+                    style={{ cursor: "pointer", textDecoration: "underline" }}
                     onClick={(e) => {
                       e.stopPropagation();
-                      onEdit(item);
+                      handleShowLikesModal(item.likes);
                     }}
                   >
-                    Edit
+                    Likes: {item.likes.length}
+                  </span>
+                </p>
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    value={newComment[item._id] || ""}
+                    onChange={(e) =>
+                      setNewComment((prevState) => ({ ...prevState, [item._id]: e.target.value }))
+                    }
+                    placeholder="Add a comment"
+                  />
+                  <button className="btn btn-primary btn-sm" onClick={() => handleAddComment(item._id)}>
+                    Add Comment
                   </button>
-                </>
-              )}
-            </li>
-          ))}
+                  <button
+                    className={`btn btn-sm ms-2 ${userId && item.likes.includes(userId) ? 'btn-success' : 'btn-outline-primary'}`}
+                    onClick={() => userId && (item.likes.includes(userId) ? handleUnlikePost(item._id) : handleLikePost(item._id))}
+                  >
+                    {item.likes.includes(userId) ? 'Liked' : 'Like'}
+                  </button>
+                </div>
+                {userId === item.sender && (
+                  <>
+                    <button
+                      className="btn btn-danger mt-2 me-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(item._id);
+                      }}
+                    >
+                      Delete
+                    </button>
+                    <button
+                      className="btn btn-secondary mt-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit(item);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
       <button className="btn btn-primary m-3" onClick={onAdd}>
