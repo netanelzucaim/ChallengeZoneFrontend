@@ -43,26 +43,29 @@ const Comments: FC<CommentsProps> = ({ comments, onDeleteComment, onUpdateCommen
     return (
         <div>
             {comments.map((comment) => (
-                <div key={comment._id} className="comment">
+                <div key={comment._id} className="comment mb-3">
                     {editingCommentId === comment._id ? (
                         <div>
                             <input
                                 type="text"
                                 value={updatedComment}
                                 onChange={(e) => setUpdatedComment(e.target.value)}
+                                className="form-control mb-2"
                             />
-                            <button className="btn btn-primary btn-sm" onClick={() => handleUpdate(comment._id)}>Update</button>
+                            <button className="btn btn-primary btn-sm me-2" onClick={() => handleUpdate(comment._id)}>Update</button>
                             <button className="btn btn-secondary btn-sm" onClick={() => setEditingCommentId(null)}>Cancel</button>
                         </div>
                     ) : (
-                        <div>
-                            <p>{comment.comment}</p>
-                            <small>By {comment.username}</small>
+                        <div className="d-flex justify-content-between align-items-center">
+                            <div>
+                                <p className="mb-1">{comment.comment}</p>
+                                <small className="text-muted">By {comment.username}</small>
+                            </div>
                             {userId === comment.sender && (
-                                <>
-                                    <button className="btn btn-danger btn-sm" onClick={() => handleDelete(comment._id)}>Delete</button>
+                                <div>
+                                    <button className="btn btn-danger btn-sm me-2" onClick={() => handleDelete(comment._id)}>Delete</button>
                                     <button className="btn btn-secondary btn-sm" onClick={() => { setEditingCommentId(comment._id); setUpdatedComment(comment.comment); }}>Edit</button>
-                                </>
+                                </div>
                             )}
                         </div>
                     )}

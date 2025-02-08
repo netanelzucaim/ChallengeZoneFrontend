@@ -1,4 +1,5 @@
 import apiClient, { CanceledError } from "./api-client";
+import userService from "./user_service";
 
 export { CanceledError }
 
@@ -43,13 +44,49 @@ const getComment = async (commentId: string) => {
         const response = await apiClient.get(`/comments/${commentId}`, {
             signal: abortController.signal
         });
-        return { data: response.data, abort: () => abortController.abort() };
+        const comment = response.data;
+
+        const userResponse = await userService.getUser(comment.sender).request;
+        const user = userResponse.data;
+
+        const updatedComment = {
+            ...comment,
+            username: user.username,
+            avatarUrl: user.avatar
+        };
+
+        return { data: updatedComment, abort: () => abortController.abort() };
     } catch (error) {
-        console.error('Failed to get comment', error);
+        console.error('Failed to fetch comment', error);
         throw error;
     }
 }
 
+// const getPosts = async () => {
+//     const abortController = new AbortController();
+//     try {
+//         const response = await apiClient.get<Post[]>('/posts', {
+//             signal: abortController.signal
+//         });
+
+//         const posts = response.data;
+
+//         const updatedPosts = await Promise.all(posts.map(async (post) => {
+//             const userResponse = await userService.getUser(post.sender).request;
+//             const user = userResponse.data;
+//             return {
+//                 ...post,
+//                 username: user.username,
+//                 avatarUrl: user.avatar
+//             };
+//         }));
+
+//         return { data: updatedPosts, abort: () => abortController.abort() };
+//     } catch (error) {
+//         console.error('Failed to fetch posts', error);
+//         throw error;
+//     }
+// }
 const deleteComment = async (commentId: string) => {
     const abortController = new AbortController();
     try {

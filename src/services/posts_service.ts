@@ -92,7 +92,6 @@ const getPostsForUser = async () => {
     }
 }
 
-
 const deletePost = (postId: string) => {
     const abortController = new AbortController();
     const token = localStorage.getItem('accessToken');
@@ -117,4 +116,16 @@ const addPost = (post: { content: string, postPic?: string }) => {
     return { request, abort: () => abortController.abort() };
 }
 
-export default { getPosts, getPostsForUser, deletePost, addPost, getCommentsForPost };
+const updatePost = (postId: string, updatedPost: { content: string, postPic?: string }) => {
+    const abortController = new AbortController();
+    const token = localStorage.getItem('accessToken');
+    const request = apiClient.put(`/posts/${postId}`, updatedPost, {
+        signal: abortController.signal,
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return { request, abort: () => abortController.abort() };
+}
+
+export default { getPosts, getPostsForUser, deletePost, addPost, getCommentsForPost, updatePost };
