@@ -23,6 +23,10 @@ const googleSignIn = (credentialResponse: CredentialResponse) => {
         console.log("googleSignIn ...");
         apiClient.post('/auth/google', credentialResponse).then((response) => {
             console.log(response);
+            const { accessToken, refreshToken, _id } = response.data;
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+            localStorage.setItem('userId', _id);
             resolve(response.data);
         }).catch((error) => {
             console.error(error);

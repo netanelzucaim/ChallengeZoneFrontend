@@ -67,6 +67,7 @@ const RegistrationForm: FC = () => {
     try{
     const res = await userService.googleSignIn(credentialResponse);
     console.log(res);
+    navigate('/home');
     }catch(error){
       console.log(error);
     }
