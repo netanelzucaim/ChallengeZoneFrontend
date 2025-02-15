@@ -1,3 +1,4 @@
+import { CredentialResponse } from "@react-oauth/google";
 import apiClient, { CanceledError } from "./api-client";
 
 export { CanceledError }
@@ -6,13 +7,28 @@ export interface User {
     _id?: string,
     username: string,
     password?: string,
-    avatar?: string
+    avatar?: string,
+    accessToken?: string,
+    refreshToken?: string
 }
 
 const register = async (user: User) => {
     const abortController = new AbortController();
     const request = await apiClient.post('/auth/register', user, { signal: abortController.signal });
     return { request, abort: () => abortController.abort() };
+}
+
+const googleSignIn = (credentialResponse: CredentialResponse) => {
+   return new Promise<User>((resolve, reject) => {
+        console.log("googleSignIn ...");
+        apiClient.post('/auth/google', credentialResponse).then((response) => {
+            console.log(response);
+            resolve(response.data);
+        }).catch((error) => {
+            console.error(error);
+            reject(error);
+        })
+   })
 }
 
 const login = async (user: User) => {
@@ -72,4 +88,4 @@ const logout = async () => {
     }
 }
 
-export default { register, login, getUser, updateUser, logout };
+export default { register, googleSignIn ,login, getUser, updateUser, logout };

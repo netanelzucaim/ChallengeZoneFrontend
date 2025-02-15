@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import imageService from "../services/image_service";
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 interface FormData {
   username: string;
@@ -61,6 +62,19 @@ const RegistrationForm: FC = () => {
 
   const { ref, ...restRegisterParams } = register("img");
 
+  const onGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+    try{
+    const res = await userService.googleSignIn(credentialResponse);
+    console.log(res);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  const onGoogleLoginError = async () => {
+    console.log("Google login failure");
+  }
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow-sm" style={{ width: '350px' }}>
@@ -111,6 +125,7 @@ const RegistrationForm: FC = () => {
             <div className="text-danger text-center mb-3">{errorMessage}</div>
           )}
           <button type="submit" className="btn btn-primary w-100">Register</button>
+          <GoogleLogin onSuccess={onGoogleLoginSuccess} onError={onGoogleLoginError} />
         </form>
       </div>
     </div>
