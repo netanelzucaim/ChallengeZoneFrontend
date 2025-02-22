@@ -11,6 +11,7 @@ import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
 
 interface FormData {
   username: string;
+  displayName: string;
   password: string;
   img: File[];
 }
@@ -34,6 +35,7 @@ const RegistrationForm: FC = () => {
 
       const user = {
         username: data.username,
+        displayName: data.displayName,
         password: data.password,
         avatar: avatarUrl
       };

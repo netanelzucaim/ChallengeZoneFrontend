@@ -8,7 +8,7 @@ export interface Comment {
     comment: string,
     sender: string,
     postId: string,
-    username?: string,
+    displayName?: string,
     avatarUrl?: string
 }
 
@@ -51,7 +51,7 @@ const getComment = async (commentId: string) => {
 
         const updatedComment = {
             ...comment,
-            username: user.username,
+            displayName: user.displayName,
             avatarUrl: user.avatar
         };
 

@@ -11,6 +11,7 @@ interface LikesModalProps {
 interface User {
   _id: string;
   username: string;
+  displayName: string;
   avatar: string;
 }
 
@@ -56,7 +57,7 @@ const LikesModal: React.FC<LikesModalProps> = ({ show, handleClose, userIds }) =
                 className="rounded-circle me-2"
                 style={{ width: '30px', height: '30px' }}
               />
-              <span>{user.username}</span>
+              <span>{user.displayName}</span>
             </li>
           ))}
         </ul>
