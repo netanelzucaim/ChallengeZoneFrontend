@@ -5,7 +5,8 @@ import Home from "./home";
 import PostForm from "./PostFormModal";
 import Profile from "./Profile";
 import Navbar from "./Navbar";
-import backgroundImage from "../../public/bg.jpeg"
+import AI from "./AI";
+import backgroundImage from "../../pictures/bg.jpeg"
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/home" element={<><Navbar /><Home /></>} />
           <Route path="/profile" element={<><Navbar /><Profile /></>} />
+          <Route path="/ai" element={<><Navbar /><AI /></>} />
           <Route path="/upload" element={<PostForm />} />
         </Routes>
       </div>
