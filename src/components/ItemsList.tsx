@@ -204,7 +204,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
 
   return (
     <>
-      {postItems.length === 0 && <p>No items</p>}
+      {postItems.length === 0 && <p>You didn't upload posts yet :(</p>}
       {postItems.length !== 0 && (
         <div className="container d-flex justify-content-center">
         <ul className="list-group" style={{ maxWidth: "600px", width: "100%" }}>
