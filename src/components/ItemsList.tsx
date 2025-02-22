@@ -206,7 +206,8 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
     <>
       {postItems.length === 0 && <p>No items</p>}
       {postItems.length !== 0 && (
-        <ul className="list-group">
+        <div className="container d-flex justify-content-center">
+        <ul className="list-group" style={{ maxWidth: "600px", width: "100%" }}>
           {postItems.map((item, index) => {
             const formattedDateTime = new Date(item.createdAt).toLocaleString();
             return (
@@ -222,7 +223,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
                     <h5 className="mb-1">{item.displayName}</h5>
                   </div>
                 </div>
-                {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2" />}
+                {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2 mx-auto d-block" style={{maxWidth: "300px"}} />}
                 <p className="mb-1">{item.content}</p>
                 <p className="text-muted">{formattedDateTime}</p> {/* Display the formatted date and time */}
                 <p className="text-muted">
@@ -291,6 +292,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
             );
           })}
         </ul>
+        </div>
       )}
       <button className="btn btn-primary m-3" onClick={onAdd}>
         Add
