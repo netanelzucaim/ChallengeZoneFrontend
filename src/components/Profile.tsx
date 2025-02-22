@@ -143,9 +143,37 @@ function Profile() {
               </div>
             ) : (
               <div>
-                <h5 className="mb-0">{user.displayName}</h5>
-                <button className="btn btn-link" onClick={() => setIsEditing(true)}>Edit</button>
-              </div>
+                <h5  className="p-3 rounded text-white d-inline-block shadow"
+  style={{
+    background: "linear-gradient(135deg, #6a11cb, #2575fc)", // מעבר צבע סגול-כחול
+    fontSize: "1.2rem", // גודל טקסט מעט גדול יותר
+    fontWeight: "bold", // הופך את הטקסט למודגש
+    letterSpacing: "1px", // מרווח קטן בין האותיות
+    border: "2px solid rgba(255, 255, 255, 0.3)", // מסגרת שקופה-לבנה עדינה
+    padding: "10px 20px", // ריווח פנימי
+    borderRadius: "12px", // פינות מעוגלות יותר
+    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // צל עדין
+    textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)", // צל לטקסט כדי להדגיש אותו
+  }}>{user.displayName}</h5><br></br>
+<button 
+  className="m-3 text-white fw-bold"
+  style={{
+    background: "linear-gradient(135deg,rgb(32, 158, 175),rgb(43, 43, 37))", // מעבר צבע ורוד-אדמדם
+    border: "none", // מסיר מסגרת ברירת מחדל
+    padding: "12px 24px", // ריווח פנימי נוח
+    fontSize: "1rem", // גודל טקסט סטנדרטי ונעים
+    borderRadius: "25px", // פינות מעוגלות בצורה אלגנטית
+    cursor: "pointer", // מציין שהכפתור לחיץ
+    transition: "all 0.3s ease-in-out", // אנימציה רכה
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)", // צל עדין
+    textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)", // צל קטן לטקסט
+  }}
+  onMouseOver={(e) => e.currentTarget.style.background = "linear-gradient(135deg,rgb(13, 132, 147),rgb(22, 22, 19))"} // שינוי צבע במעבר עכבר
+  onMouseOut={(e) => e.currentTarget.style.background = "linear-gradient(135deg,rgb(32, 158, 175),rgb(43, 43, 37))"} // חזרה לצבע המקורי
+  onClick={() => setIsEditing(true)}
+>
+  Edit Your Details
+</button>              </div>
             )}
           </div>
         </div>

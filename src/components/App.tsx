@@ -5,11 +5,23 @@ import Home from "./home";
 import PostForm from "./PostFormModal";
 import Profile from "./Profile";
 import Navbar from "./Navbar";
+import backgroundImage from "../../public/bg.jpeg"
 
 const App = () => {
   return (
     <Router>
-      <div className="app-container">
+      <div
+        className="d-flex flex-column min-vh-100"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          minHeight: "100vh",
+          width: "100vw"
+        }}
+      >
+      <div className="flex-grow-1">
         <Routes>
           {/* Define Routes */}
           <Route path="/register" element={<RegistrationForm />} />
@@ -20,6 +32,7 @@ const App = () => {
           <Route path="/profile" element={<><Navbar /><Profile /></>} />
           <Route path="/upload" element={<PostForm />} />
         </Routes>
+      </div>
       </div>
     </Router>
   );
