@@ -7,7 +7,7 @@ interface Post {
   postPic: string;
   content: string;
   sender: string;
-  username?: string;
+  displayName?: string;
   avatarUrl?: string;
 }
 

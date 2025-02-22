@@ -9,7 +9,7 @@ interface Post {
     postPic: string,
     content: string,
     sender: string,
-    username?: string, // Add username field
+    displayName?: string, // Add username field
     avatarUrl?: string, // Add avatarUrl field
     comments: string[],
     likes: string[]
@@ -29,7 +29,7 @@ const getPosts = async () => {
             const user = userResponse.data;
             return {
                 ...post,
-                username: user.username,
+                displayName: user.displayName,
                 avatarUrl: user.avatar
             };
         }));
@@ -81,7 +81,7 @@ const getPostsForUser = async () => {
             const user = userResponse.data;
             return {
                 ...post,
-                username: user.username,
+                displayName: user.displayName,
                 avatarUrl: user.avatar
             };
         }));

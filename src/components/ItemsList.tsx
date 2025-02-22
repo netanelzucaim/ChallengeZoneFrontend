@@ -12,7 +12,7 @@ interface Post {
   sender: string;
   avatarUrl: string;
   postPic?: string; // Make postPic optional
-  username: string;
+  displayName: string;
   comments: string[]; // Add comments array
   likes: string[]; // Add likes array
   createdAt: string; // Add createdAt field
@@ -23,7 +23,7 @@ interface Comment {
   comment: string;
   sender: string;
   postId: string;
-  username?: string;
+  displayName?: string;
   avatarUrl?: string;
 }
 
@@ -219,7 +219,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
                     style={{ width: "50px", height: "50px" }}
                   />
                   <div>
-                    <h5 className="mb-1">{item.username}</h5>
+                    <h5 className="mb-1">{item.displayName}</h5>
                   </div>
                 </div>
                 {item.postPic && <img src={item.postPic} alt="post" className="img-fluid mt-2" />}

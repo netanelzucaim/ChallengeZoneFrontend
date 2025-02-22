@@ -7,7 +7,7 @@ interface Comment {
     comment: string;
     sender: string;
     postId: string;
-    username?: string;
+    displayName?: string;
     avatarUrl?: string;
 }
 

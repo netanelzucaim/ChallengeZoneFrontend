@@ -12,13 +12,14 @@ interface Post {
   postPic: string;
   content: string;
   sender: string;
-  username?: string;
+  displayName?: string;
   avatarUrl?: string;
 }
 
 interface User {
   _id: string;
   username: string;
+  displayName: string;
   avatar: string;
 }
 
@@ -53,7 +54,7 @@ function Profile() {
       const { request } = userService.getUser(userId);
       const response = await request;
       setUser(response.data);
-      setUpdatedUsername(response.data.username);
+      setUpdatedUsername(response.data.displayName);
     } catch (error) {
       console.error("Failed to fetch user", error);
       setError("Error fetching user data...");
@@ -78,8 +79,8 @@ function Profile() {
     }
 
     try {
-      await userService.updateUser(userId, { username: updatedUsername, avatar: avatarUrl });
-      setUser({ ...user, username: updatedUsername, avatar: avatarUrl });
+      await userService.updateUser(userId, { displayName: updatedUsername, avatar: avatarUrl });
+      setUser({ ...user, displayName: updatedUsername, avatar: avatarUrl });
       setIsEditing(false);
       fetchPosts(); // Refresh the posts list after updating the user details
     } catch (error) {
@@ -142,7 +143,7 @@ function Profile() {
               </div>
             ) : (
               <div>
-                <h5 className="mb-0">{user.username}</h5>
+                <h5 className="mb-0">{user.displayName}</h5>
                 <button className="btn btn-link" onClick={() => setIsEditing(true)}>Edit</button>
               </div>
             )}

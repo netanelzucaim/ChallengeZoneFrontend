@@ -6,7 +6,7 @@ interface Comment {
   comment: string;
   sender: string;
   postId: string;
-  username?: string;
+  displayName?: string;
   avatarUrl?: string;
   createdAt: string; // Add createdAt field
 }
@@ -62,7 +62,7 @@ const Comments: FC<CommentsProps> = ({ comments, onDeleteComment, onUpdateCommen
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <p className="mb-1">{comment.comment}</p>
-                  <small className="text-muted">By {comment.username} on {formattedDateTime}</small> {/* Display the formatted date and time */}
+                  <small className="text-muted">By {comment.displayName} on {formattedDateTime}</small> {/* Display the formatted date and time */}
                 </div>
                 {userId === comment.sender && (
                   <div>

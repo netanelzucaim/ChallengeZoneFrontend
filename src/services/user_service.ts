@@ -6,6 +6,7 @@ export { CanceledError }
 export interface User {
     _id?: string,
     username: string,
+    displayName: string,
     password?: string,
     avatar?: string,
     accessToken?: string,

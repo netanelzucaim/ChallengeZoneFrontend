@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface FormData {
   username: string;
+  displayName: string;
   password: string;
 }
 
@@ -17,6 +18,7 @@ const LoginForm: FC = () => {
     console.log(data);
     const user: User = {
       username: data.username,
+      displayName: data.displayName,
       password: data.password,
     };
     userService.login(user)
