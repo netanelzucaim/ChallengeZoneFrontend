@@ -31,6 +31,9 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/ai">chat</Link>
             </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/challenges">Challenges</Link>
+            </li>
           </ul>
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
