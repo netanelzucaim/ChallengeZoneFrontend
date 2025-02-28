@@ -93,6 +93,34 @@ const getPostsForUser = async () => {
     }
 }
 
+const getPostsForChallengeZone = async () => {
+    const abortController = new AbortController();
+    try {
+        const sender = import.meta.env.VITE_SENDER_ID;
+        const response = await apiClient.get<Post[]>(`/posts?sender=${sender}`, {
+            signal: abortController.signal
+        });
+
+        const posts = response.data;
+
+        const updatedPosts = await Promise.all(posts.map(async (post) => {
+            const userResponse = await userService.getUser(post.sender).request;
+            const user = userResponse.data;
+            return {
+                ...post,
+                displayName: user.displayName,
+                avatarUrl: user.avatar
+            };
+        }));
+
+        return { data: updatedPosts, abort: () => abortController.abort() };
+    } catch (error) {
+        console.error('Failed to fetch posts', error);
+        throw error;
+    }
+}
+
+
 const deletePost = (postId: string) => {
     const abortController = new AbortController();
     const token = localStorage.getItem('accessToken');
@@ -190,4 +218,4 @@ const getPost = async (postId: string) => {
     }
 }
 
-export default { getPosts, getPostsForUser, deletePost, addPost, getCommentsForPost, updatePost, addLikeToPost, removeLikeFromPost };
+export default { getPosts, getPostsForUser, getPostsForChallengeZone, deletePost, addPost, getCommentsForPost, updatePost, addLikeToPost, removeLikeFromPost };
