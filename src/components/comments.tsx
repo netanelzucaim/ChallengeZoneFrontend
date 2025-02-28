@@ -61,7 +61,14 @@ const Comments: FC<CommentsProps> = ({ comments, onDeleteComment, onUpdateCommen
             ) : (
               <div className="d-flex justify-content-between align-items-center">
                 <div>
-                  <p className="mb-1">{comment.comment}</p>
+                  <p className="mb-1">
+                  <img
+                  src={comment.avatarUrl}
+                  alt="User Avatar"
+                  className="rounded-circle me-2"
+                  style={{ width: '30px', height: '30px' }}
+                  />
+                  {comment.comment}</p>
                   <small className="text-muted">By {comment.displayName} on {formattedDateTime}</small> {/* Display the formatted date and time */}
                 </div>
                 {userId === comment.sender && (
