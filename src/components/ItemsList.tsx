@@ -211,7 +211,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
           {postItems.map((item, index) => {
             const formattedDateTime = new Date(item.createdAt).toLocaleString();
             return (
-              <li key={index} className="list-group-item">
+              <li key={index} className="list-group-item"  style={{ backgroundColor: "#7da1c9", color: "black" }}>
                 <div className="d-flex align-items-center">
                   <img
                     src={item.avatarUrl}

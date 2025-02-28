@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import userService, { User } from "../services/user_service";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CredentialResponse, GoogleLogin } from "@react-oauth/google";
+
 
 interface FormData {
   username: string;
@@ -31,6 +33,21 @@ const LoginForm: FC = () => {
       });
   };
 
+  const onGoogleLoginSuccess = async (credentialResponse: CredentialResponse) => {
+    console.log(credentialResponse);
+    try{
+    const res = await userService.googleSignIn(credentialResponse);
+    console.log(res);
+    navigate('/home');
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  const onGoogleLoginError = async () => {
+    console.log("Google login failure");
+  }
+  
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow-sm" style={{ width: '350px' }}>
@@ -57,6 +74,9 @@ const LoginForm: FC = () => {
             {errors.password && <small className="text-danger">{errors.password.message}</small>}
           </div>
           <button type="submit" className="btn btn-dark w-100">Continue</button>
+          <div className="d-flex justify-content-center w-100 mt-2">
+          <GoogleLogin onSuccess={onGoogleLoginSuccess} onError={onGoogleLoginError} theme="outline" />
+          </div>
         </form>
         <div className="text-center mt-3">
           <p className="text-muted">Don't have an account? <a href="#" className="text-dark" onClick={() => navigate('/register')}>Sign up</a></p>
