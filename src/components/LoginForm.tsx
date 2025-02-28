@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import userService, { User } from "../services/user_service";
@@ -15,8 +15,11 @@ interface FormData {
 const LoginForm: FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 
   const onSubmit = (data: FormData) => {
+    setErrorMessage(null);
     console.log(data);
     const user: User = {
       username: data.username,
@@ -30,6 +33,7 @@ const LoginForm: FC = () => {
       })
       .catch((error) => {
         console.error(error);
+        setErrorMessage("Username or password are incorrect");
       });
   };
 
@@ -40,12 +44,14 @@ const LoginForm: FC = () => {
     console.log(res);
     navigate('/home');
     }catch(error){
-      console.log(error);
+      console.error(error);
+      setErrorMessage("Google login failed, please try again");
     }
   }
 
   const onGoogleLoginError = async () => {
-    console.log("Google login failure");
+    console.error("Google login failure");
+    setErrorMessage("Google login failure");
   }
   
   return (
@@ -54,6 +60,9 @@ const LoginForm: FC = () => {
         <h2 className="text-center">Challenge Zone</h2>
         <p className="text-center text-muted">Sign in</p>
         <p className="text-center text-muted">Enter your username and sign in</p>
+        {errorMessage && ( 
+          <div className="alert alert-danger text-center p-2">{errorMessage}</div>
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <input

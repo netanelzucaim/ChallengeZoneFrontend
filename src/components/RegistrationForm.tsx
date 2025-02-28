@@ -39,13 +39,13 @@ const RegistrationForm: FC = () => {
         avatar: avatarUrl
       };
 
-      const { request } = userService.register(user);
-      await request;
+      const { request } = await userService.register(user);
+      
       console.log('User registered successfully');
-
       // Redirect to the login screen after successful registration
       navigate("/login");
     } catch (error: any) {
+      console.log(error.response);
       if (error.response && error.response.status === 409) {
         setErrorMessage(error.response.data);
       } else {
@@ -67,6 +67,9 @@ const RegistrationForm: FC = () => {
     <div className="d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4 shadow-sm" style={{ width: '350px' }}>
         <h2 className="text-center">Register</h2>
+        {errorMessage && ( 
+          <div className="alert alert-danger text-center p-2">{errorMessage}</div>
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <input
@@ -109,9 +112,6 @@ const RegistrationForm: FC = () => {
               style={{ display: 'none' }}
             />
           </div>
-          {errorMessage && (
-            <div className="text-danger text-center mb-3">{errorMessage}</div>
-          )}
           <button type="submit" className="btn btn-primary w-100">Register</button>
         </form>
         <div className="text-center mt-3">
