@@ -204,6 +204,20 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
 
   return (
     <>
+
+<div style={{ position: "relative" }}> 
+  <button
+    className="btn btn-primary"
+    onClick={onAdd}
+    style={{
+      position: "absolute", 
+      top: "10px",  
+      right: "10px",  
+      zIndex: 10, 
+    }}
+  >
+    New Post
+  </button><br></br><br></br><br></br><br></br><br></br>
       {postItems.length === 0 && <p>You didn't upload posts yet :(</p>}
       {postItems.length !== 0 && (
         <div className="container d-flex justify-content-center">
@@ -294,9 +308,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
         </ul>
         </div>
       )}
-      <button className="btn btn-primary m-3" onClick={onAdd}>
-        Add
-      </button>
+      </div>
       {currentPostId && comments[currentPostId] && (
         <CommentsModal
           show={showCommentsModal}

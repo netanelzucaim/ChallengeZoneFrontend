@@ -26,10 +26,10 @@ const Chat: React.FC = () => {
         <h2
           className="p-2"
           style={{
-            backgroundColor: "#469187", // צבע הרקע
-            color: "white", // צבע הטקסט
-            padding: "10px 20px", // ריווח פנימי
-            borderRadius: "5px", // עיגול קצוות
+            backgroundColor: "#469187",
+            color: "white", 
+            padding: "10px 20px", 
+            borderRadius: "5px", 
             textAlign: "center"
           }}
         >
