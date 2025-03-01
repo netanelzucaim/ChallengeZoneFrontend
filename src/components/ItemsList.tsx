@@ -217,8 +217,22 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
     }}
   >
     New Post
-  </button><br></br><br></br><br></br><br></br><br></br>
-      {postItems.length === 0 && <p>You didn't upload posts yet :(</p>}
+  </button><br></br><br></br>
+      {postItems.length === 0 && (
+         <div className="container d-flex justify-content-center align-items-center"
+         style={{
+           height: "10vh", 
+           width: "22%",
+           border: "4px solid #f2b84b", 
+           borderRadius: "10px", 
+           padding: "20px",
+           boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", 
+           backgroundColor: "#f9f9f9"
+         }}>
+         <p className="text-center m-0" style={{ fontSize: "18px", fontWeight: "bold", color: "#333" }}>
+           You didn't upload posts yet :(
+         </p>
+       </div>)}
       {postItems.length !== 0 && (
         <div className="container d-flex justify-content-center">
         <ul className="list-group" style={{ maxWidth: "600px", width: "100%" }}>
