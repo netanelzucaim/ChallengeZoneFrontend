@@ -19,7 +19,8 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const response = await postsService.getPosts();
-      setItems(response.data);
+      const filteredPosts = response.data.filter((post: Post) => post.sender !== import.meta.env.VITE_SENDER_ID);
+      setItems(filteredPosts);
     } catch (error) {
       console.error('Failed to fetch posts', error);
       setError('Error fetching data...');

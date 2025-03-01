@@ -6,6 +6,7 @@ import PostForm from "./PostFormModal";
 import Profile from "./Profile";
 import Navbar from "./Navbar";
 import AI from "./AI";
+import AboutUs from "./AboutUs";
 import Challenges from "./Challenges";
 import backgroundImage from "../../pictures/bg.jpeg"
 
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/profile" element={<><Navbar /><Profile /></>} />
           <Route path="/ai" element={<><Navbar /><AI /></>} />
           <Route path="/challenges" element={<><Navbar /><Challenges /></>} />
+          <Route path="/aboutUs" element={<><Navbar /><AboutUs/></>} />
           <Route path="/upload" element={<PostForm />} />
         </Routes>
       </div>

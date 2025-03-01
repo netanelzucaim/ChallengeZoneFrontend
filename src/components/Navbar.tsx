@@ -36,6 +36,9 @@ const Navbar = () => {
             </li>
           </ul>
           <ul className="navbar-nav ms-auto">
+          <li className="nav-item">
+              <Link className="btn btn-link nav-link" to="/aboutUs">About Us</Link>
+            </li>
             <li className="nav-item">
               <button className="btn btn-link nav-link" onClick={handleLogout}>Logout</button>
             </li>
