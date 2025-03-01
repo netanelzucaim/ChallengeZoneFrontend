@@ -106,12 +106,13 @@ function Profile() {
               src={selectedImage ? URL.createObjectURL(selectedImage) : user.avatar}
               alt="User Avatar"
               className="rounded-circle"
-              style={{ width: "100px", height: "100px" }}
+              style={{ width: "120px", height: "120px" }}
             />
             {isEditing && (
-              <div className="mt-2">
+              <div className="mt-2 d-flex justify-content-center">
                 <FontAwesomeIcon
                   icon={faImage}
+                  size="xl"
                   onClick={() => document.getElementById('fileInput')?.click()}
                   style={{ cursor: 'pointer' }}
                 />
@@ -144,6 +145,7 @@ function Profile() {
             ) : (
               <div>
                 <h5  className="p-3 rounded text-white d-inline-block shadow"
+  
   style={{
     background: "linear-gradient(135deg, #6a11cb, #2575fc)", 
     fontSize: "1.2rem", 
@@ -154,7 +156,7 @@ function Profile() {
     borderRadius: "12px",
     boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", 
     textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)", 
-  }}>{user.displayName}</h5><br></br>
+  }}>Username: {user.username} <br></br> Display name: {user.displayName}</h5><br></br>
 <button 
   className="m-3 text-white fw-bold"
   style={{
@@ -172,7 +174,7 @@ function Profile() {
   onMouseOut={(e) => e.currentTarget.style.background = "linear-gradient(135deg,rgb(32, 158, 175),rgb(43, 43, 37))"} 
   onClick={() => setIsEditing(true)}
 >
-  Edit Your Details
+  Edit Your Display Name
 </button>              </div>
             )}
           </div>
