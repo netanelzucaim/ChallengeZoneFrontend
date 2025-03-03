@@ -1,7 +1,8 @@
 import axios, { CanceledError, AxiosRequestConfig, AxiosResponse, AxiosError } from "axios";
 export { CanceledError };
 const backend_url = import.meta.env.VITE_BACKEND_URL
-
+console.log(import.meta.env.VITE_BACKEND_URL+"is the backend url")
+console.log(backend_url+"is the backend")
 const apiClient = axios.create({
     baseURL: backend_url,
 });
