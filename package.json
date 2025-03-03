@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode development",
+    "dev": "tsc -b && vite --mode development",
     "build": "tsc -b && vite build && cp -r dist/* ../ChallengeZoneBackend/front",
     "lint": "eslint .",
     "preview": "vite preview"
