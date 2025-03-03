@@ -9,10 +9,10 @@ interface LikesModalProps {
 }
 
 interface User {
-  _id: string;
+  _id?: string;
   username: string;
   displayName: string;
-  avatar: string;
+  avatar?: string;
 }
 
 const LikesModal: React.FC<LikesModalProps> = ({ show, handleClose, userIds }) => {

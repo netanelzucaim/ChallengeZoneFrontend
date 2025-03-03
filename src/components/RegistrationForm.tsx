@@ -39,7 +39,7 @@ const RegistrationForm: FC = () => {
         avatar: avatarUrl
       };
 
-      const { request } = await userService.register(user);
+      await userService.register(user);
       
       console.log('User registered successfully');
       // Redirect to the login screen after successful registration

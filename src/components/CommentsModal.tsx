@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import Comments from './Comments';
+import Comments from './comments';
 
 interface Comment {
     _id: string;
@@ -9,6 +9,8 @@ interface Comment {
     postId: string;
     displayName?: string;
     avatarUrl?: string;
+    createdAt: string; // Add createdAt field
+
 }
 
 interface CommentsModalProps {

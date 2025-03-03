@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 import postsService from '../services/posts_service';

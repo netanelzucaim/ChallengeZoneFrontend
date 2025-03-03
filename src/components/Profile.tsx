@@ -6,21 +6,23 @@ import imageService from "../services/image_service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 interface Post {
   _id: string;
-  postPic: string;
   content: string;
   sender: string;
-  displayName?: string;
   avatarUrl?: string;
+  postPic?: string; // Make postPic optional
+  displayName?: string;
+  comments: string[]; // Add comments array
+  likes: string[]; // Add likes array
+  createdAt: string; // Add createdAt field
 }
 
 interface User {
-  _id: string;
+  _id?: string;
   username: string;
   displayName: string;
-  avatar: string;
+  avatar?: string;
 }
 
 function Profile() {
@@ -63,7 +65,7 @@ function Profile() {
 
   const handleUpdateUser = async () => {
     if (!user) return;
-    const userId = user._id;
+    const userId = user._id!;
     let avatarUrl = user.avatar;
 
     if (selectedImage) {

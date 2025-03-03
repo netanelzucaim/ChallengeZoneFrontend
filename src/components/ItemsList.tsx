@@ -10,9 +10,9 @@ interface Post {
   _id: string;
   content: string;
   sender: string;
-  avatarUrl: string;
+  avatarUrl?: string;
   postPic?: string; // Make postPic optional
-  displayName: string;
+  displayName?: string;
   comments: string[]; // Add comments array
   likes: string[]; // Add likes array
   createdAt: string; // Add createdAt field
@@ -25,6 +25,8 @@ interface Comment {
   postId: string;
   displayName?: string;
   avatarUrl?: string;
+  createdAt: string; // Add createdAt field
+
 }
 
 interface ItemsListProps {
@@ -33,7 +35,7 @@ interface ItemsListProps {
   fetchPosts: () => void;
 }
 
-function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
+function ItemsList({ items, fetchPosts }: ItemsListProps) {
   const [postItems, setPostItems] = useState<Post[]>(items);
   const [comments, setComments] = useState<{ [key: string]: Comment[] }>({});
   const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
@@ -161,7 +163,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
 
   const handleAddComment = async (postId: string) => {
     try {
-      const { data } = await commentsService.addComment(postId, newComment[postId]);
+      await commentsService.addComment(postId, newComment[postId]);
       setNewComment((prevState) => ({
         ...prevState,
         [postId]: "",
@@ -291,7 +293,7 @@ function ItemsList({ items, onItemSelected, fetchPosts }: ItemsListProps) {
                     className={`btn btn-sm ms-2 ${userId && item.likes.includes(userId) ? 'btn-success' : 'btn-outline-primary'}`}
                     onClick={() => userId && (item.likes.includes(userId) ? handleUnlikePost(item._id) : handleLikePost(item._id))}
                   >
-                    {item.likes.includes(userId) ? 'Liked' : 'Like'}
+                    {userId && item.likes.includes(userId) ? 'Liked' : 'Like'}
                   </button>
                 </div>
                 {userId === item.sender && (

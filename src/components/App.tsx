@@ -36,7 +36,11 @@ const App = () => {
           <Route path="/ai" element={<><Navbar /><AI /></>} />
           <Route path="/challenges" element={<><Navbar /><Challenges /></>} />
           <Route path="/aboutUs" element={<><Navbar /><AboutUs/></>} />
-          <Route path="/upload" element={<PostForm />} />
+          <Route path="/upload" element={<PostForm show={false} handleClose={function (): void {
+              throw new Error("Function not implemented.");
+            } } onPostAdded={function (): void {
+              throw new Error("Function not implemented.");
+            } } />} />
         </Routes>
       </div>
       </div>
