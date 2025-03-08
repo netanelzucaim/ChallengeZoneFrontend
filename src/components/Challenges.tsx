@@ -1,28 +1,14 @@
 import ItemsList from "./ItemsList";
 import { useEffect, useState } from "react";
 import postsService from "../services/posts_service";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-interface Post {
-  _id: string;
-  content: string;
-  sender: string;
-  avatarUrl?: string;
-  postPic?: string; // Make postPic optional
-  displayName?: string;
-  comments: string[]; // Add comments array
-  likes: string[]; // Add likes array
-  createdAt: string; // Add createdAt field
-}
-
-
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Post } from "../interfaces"; // Import interfaces
 
 function Challenges() {
   const [items, setItems] = useState<Post[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+
   const fetchPosts = async () => {
     try {
       const response = await postsService.getPostsForChallengeZone();
@@ -48,9 +34,13 @@ function Challenges() {
     <div className="m-3">
       {isLoading && <p>Loading...</p>}
       {error && <div className="alert alert-danger">{error}</div>}
-      <ItemsList items={items} onItemSelected={() => { }} fetchPosts={fetchPosts} />
+      <ItemsList
+        items={items}
+        onItemSelected={() => {}}
+        fetchPosts={fetchPosts}
+      />
     </div>
   );
 }
 
-export default Challenges
+export default Challenges;
