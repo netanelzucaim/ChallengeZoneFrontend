@@ -1,4 +1,4 @@
-import ItemsList from "./ItemsList";
+import ItemsList from "./itemList/ItemsList";
 import { useEffect, useState } from "react";
 import postsService from "../services/posts_service";
 import "bootstrap/dist/css/bootstrap.min.css";

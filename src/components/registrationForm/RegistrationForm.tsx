@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import userService from "../services/user_service";
-import avatar from "../assets/avatar.png";
+import userService from "../../services/user_service";
+import avatar from "../../assets/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import imageService from "../services/image_service";
+import './RegistrationForm.css'; // Import custom CSS for additional styling
+import imageService from "../../services/image_service";
 
 interface FormData {
   username: string;
@@ -65,7 +66,7 @@ const RegistrationForm: FC = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="card p-4 shadow-sm" style={{ width: '350px' }}>
+      <div className="card p-4 shadow-sm registration-card">
         <h2 className="text-center">Register</h2>
         {errorMessage && ( 
           <div className="alert alert-danger text-center p-2">{errorMessage}</div>

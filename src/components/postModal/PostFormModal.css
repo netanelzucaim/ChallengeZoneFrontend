@@ -1,0 +1,42 @@
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+}
+
+.btn {
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+.alert {
+  border-radius: 8px;
+}
+
+.text-center img {
+  border-radius: 50%;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-center .fa-image {
+  font-size: 24px;
+  color: #0056b3;
+  transition: color 0.3s ease;
+}
+
+.text-center .fa-image:hover {
+  color: #003d80;
+}

@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { Modal } from "react-bootstrap";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import postsService from "../services/posts_service";
-import imageService from "../services/image_service";
-import avatar from "../assets/avatar.png";
+import postsService from "../../services/posts_service";
+import imageService from "../../services/image_service";
+import avatar from "../../assets/avatar.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Post } from "../interfaces"; // Import interfaces
+import "./PostFormModal.css"; // Import custom CSS for additional styling
 
 const schema = z.object({
   content: z
@@ -77,63 +77,61 @@ const PostFormModal: FC<PostFormModalProps> = ({
   const { ref, ...restRegisterParams } = register("img");
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Add Post</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="m-3">
+          <div className="form-group mb-3">
             <label className="form-label" htmlFor="content">
               Content
             </label>
-            <input
+            <textarea
               {...register("content")}
               className="form-control"
-              type="text"
               id="content"
               name="content"
+              rows={3}
             />
             {errors.content && (
               <p className="text-danger">{errors.content.message}</p>
             )}
+          </div>
 
-            <div className="text-center mb-3">
-              <img
-                src={
-                  selectedImage ? URL.createObjectURL(selectedImage) : avatar
-                }
-                alt="Avatar"
-                className="rounded-circle"
-                style={{ width: "100px", height: "100px" }}
-              />
-              <div>
-                <FontAwesomeIcon
-                  icon={faImage}
-                  onClick={() => inputFileRef.current?.click()}
-                  style={{ cursor: "pointer" }}
-                />
-              </div>
-              <input
-                ref={(item) => {
-                  inputFileRef.current = item;
-                  ref(item);
-                }}
-                {...restRegisterParams}
-                type="file"
-                accept="image/png, image/jpeg"
-                style={{ display: "none" }}
+          <div className="text-center mb-3">
+            <img
+              src={selectedImage ? URL.createObjectURL(selectedImage) : avatar}
+              alt="Avatar"
+              className="rounded-circle"
+              style={{ width: "100px", height: "100px" }}
+            />
+            <div>
+              <FontAwesomeIcon
+                icon={faImage}
+                onClick={() => inputFileRef.current?.click()}
+                style={{ cursor: "pointer", marginTop: "10px" }}
               />
             </div>
-
-            {errorMessage && (
-              <div className="text-danger text-center mb-3">{errorMessage}</div>
-            )}
-
-            <button className="btn btn-primary mt-3" type="submit">
-              Save
-            </button>
+            <input
+              ref={(item) => {
+                inputFileRef.current = item;
+                ref(item);
+              }}
+              {...restRegisterParams}
+              type="file"
+              accept="image/png, image/jpeg"
+              style={{ display: "none" }}
+            />
           </div>
+
+          {errorMessage && (
+            <div className="text-danger text-center mb-3">{errorMessage}</div>
+          )}
+
+          <button className="btn btn-primary w-100" type="submit">
+            Save
+          </button>
         </form>
       </Modal.Body>
     </Modal>

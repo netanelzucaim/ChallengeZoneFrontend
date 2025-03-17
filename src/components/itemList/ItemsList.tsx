@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
-import postsService from "../services/posts_service";
-import commentsService from "../services/comments_service";
-import CommentsModal from "./CommentsModal";
-import PostFormModal from "./PostFormModal";
-import LikesModal from "./LikesModal";
-import imageService from "../services/image_service";
-import { Post, Comment } from "../interfaces"; // Import interfaces
+import postsService from "../../services/posts_service";
+import commentsService from "../../services/comments_service";
+import CommentsModal from "../commentsModal/CommentsModal";
+import PostFormModal from "../postModal/PostFormModal";
+import LikesModal from "../likesModal/LikesModal";
+import imageService from "../../services/image_service";
+import { Post, Comment } from "../../interfaces"; // Import interfaces
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faComment,
+  faThumbsUp,
+  faTrash,
+  faEdit,
+} from "@fortawesome/free-solid-svg-icons";
+import "./ItemsList.css"; // Import custom CSS for additional styling
 
 interface ItemsListProps {
   items: Post[];
@@ -196,104 +204,66 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
   return (
     <>
       <div style={{ position: "relative" }}>
-        <button
-          className="btn btn-primary"
-          onClick={onAdd}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            zIndex: 10,
-          }}
-        >
+        <button className="btn btn-primary new-post-btn" onClick={onAdd}>
           New Post
         </button>
         <br></br>
         <br></br>
-        {postItems.length === 0 && (
-          <div
-            className="container d-flex justify-content-center align-items-center"
-            style={{
-              height: "10vh",
-              width: "22%",
-              border: "4px solid #f2b84b",
-              borderRadius: "10px",
-              padding: "20px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-              backgroundColor: "#f9f9f9",
-            }}
-          >
-            <p
-              className="text-center m-0"
-              style={{ fontSize: "18px", fontWeight: "bold", color: "#333" }}
-            >
-              You didn't upload posts yet :(
-            </p>
-          </div>
-        )}
+
         {postItems.length !== 0 && (
           <div className="container d-flex justify-content-center">
-            <ul
-              className="list-group"
-              style={{ maxWidth: "600px", width: "100%" }}
-            >
+            <ul className="list-group post-list">
               {postItems.map((item, index) => {
-                const formattedDateTime = new Date(
-                  item.createdAt
-                ).toLocaleString();
+                const formattedDateTime = new Date(item.createdAt).toLocaleString('en-GB', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                  second: '2-digit',
+                  hour12: true,
+                });
                 return (
-                  <li
-                    key={index}
-                    className="list-group-item"
-                    style={{ backgroundColor: "#7da1c9", color: "black" }}
-                  >
+                  <li key={index} className="list-group-item post-item">
                     <div className="d-flex align-items-center">
                       <img
                         src={item.avatarUrl}
                         alt="avatar"
-                        className="rounded-circle me-3"
-                        style={{ width: "50px", height: "50px" }}
+                        className="rounded-circle me-3 post-avatar"
                       />
                       <div>
                         <h5 className="mb-1">{item.displayName}</h5>
+                        <p className="text-muted">{formattedDateTime}</p>
                       </div>
                     </div>
                     {item.postPic && (
                       <img
                         src={item.postPic}
                         alt="post"
-                        className="img-fluid mt-2 mx-auto d-block"
-                        style={{ maxWidth: "300px" }}
+                        className="img-fluid mt-2 mx-auto d-block post-image"
                       />
                     )}
                     <p className="mb-1">{item.content}</p>
-                    <p className="text-muted">{formattedDateTime}</p>{" "}
-                    {/* Display the formatted date and time */}
                     <p className="text-muted">
                       <span
-                        style={{
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
+                        className="comments-link"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleShowCommentsModal(item._id);
                         }}
                       >
-                        Comments
+                        <FontAwesomeIcon icon={faComment} /> Comments
                       </span>
                       : {comments[item._id] ? comments[item._id].length : 0} |
                       <span
-                        style={{
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
+                        className="likes-link"
                         onClick={(e) => {
                           e.stopPropagation();
                           handleShowLikesModal(item.likes);
                         }}
                       >
-                        Likes: {item.likes.length}
+                        <FontAwesomeIcon icon={faThumbsUp} /> Likes:{" "}
+                        {item.likes.length}
                       </span>
                     </p>
                     <div className="mt-2">
@@ -307,15 +277,16 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                           }))
                         }
                         placeholder="Add a comment"
+                        className="form-control comment-input"
                       />
                       <button
-                        className="btn btn-primary btn-sm"
+                        className="btn btn-primary btn-sm add-comment-btn"
                         onClick={() => handleAddComment(item._id)}
                       >
                         Add Comment
                       </button>
                       <button
-                        className={`btn btn-sm ms-2 ${
+                        className={`btn btn-sm ms-2 like-btn ${
                           userId && item.likes.includes(userId)
                             ? "btn-success"
                             : "btn-outline-primary"
@@ -333,7 +304,7 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                       </button>
                     </div>
                     {userId === item.sender && (
-                      <>
+                      <div className="post-actions">
                         <button
                           className="btn btn-danger mt-2 me-2"
                           onClick={(e) => {
@@ -341,7 +312,7 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                             onDelete(item._id);
                           }}
                         >
-                          Delete
+                          <FontAwesomeIcon icon={faTrash} /> Delete
                         </button>
                         <button
                           className="btn btn-secondary mt-2"
@@ -350,9 +321,9 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                             onEdit(item);
                           }}
                         >
-                          Edit
+                          <FontAwesomeIcon icon={faEdit} /> Edit
                         </button>
-                      </>
+                      </div>
                     )}
                   </li>
                 );
