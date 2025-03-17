@@ -36,6 +36,7 @@ const PostFormModal: FC<PostFormModalProps> = ({
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<PostFormData>({ resolver: zodResolver(schema) });
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -62,10 +63,17 @@ const PostFormModal: FC<PostFormModalProps> = ({
       console.log("Post added successfully");
       onPostAdded();
       handleClose();
+      resetForm();
     } catch (error) {
       console.error(error);
       setErrorMessage("Failed to add post");
     }
+  };
+
+  const resetForm = () => {
+    reset();
+    setSelectedImage(null);
+    setErrorMessage(null);
   };
 
   useEffect(() => {
@@ -73,6 +81,12 @@ const PostFormModal: FC<PostFormModalProps> = ({
       setSelectedImage(img[0]);
     }
   }, [img]);
+
+  useEffect(() => {
+    if (!show) {
+      resetForm();
+    }
+  }, [show]);
 
   const { ref, ...restRegisterParams } = register("img");
 

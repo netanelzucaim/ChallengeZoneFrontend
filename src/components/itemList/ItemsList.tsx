@@ -33,6 +33,9 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
   const [editContent, setEditContent] = useState<string>("");
   const [editPostPic, setEditPostPic] = useState<File | null>(null);
   const [likesUserIds, setLikesUserIds] = useState<string[]>([]);
+  const [selectedEditPostPic, setSelectedEditPostPic] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     setPostItems(items);
@@ -60,11 +63,12 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
     setEditContent(post.content);
     setEditPostPic(null);
     setCurrentPostId(post._id);
+    setSelectedEditPostPic(post.postPic || null);
   };
 
   const handleUpdatePost = async () => {
     if (!currentPostId) return;
-    let postPicUrl = "";
+    let postPicUrl = selectedEditPostPic;
 
     if (editPostPic) {
       try {
@@ -75,9 +79,6 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
         console.error("Failed to upload image", error);
         return;
       }
-    } else {
-      const post = postItems.find((item) => item._id === currentPostId);
-      postPicUrl = post?.postPic || "";
     }
 
     try {
@@ -214,13 +215,15 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
           <div className="container d-flex justify-content-center">
             <ul className="list-group post-list">
               {postItems.map((item, index) => {
-                const formattedDateTime = new Date(item.createdAt).toLocaleString('en-GB', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  second: '2-digit',
+                const formattedDateTime = new Date(
+                  item.createdAt
+                ).toLocaleString("en-GB", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
                   hour12: true,
                 });
                 return (
@@ -384,6 +387,14 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                   <label htmlFor="editPostPic" className="form-label">
                     Post Picture
                   </label>
+                  {selectedEditPostPic && (
+                    <img
+                      src={selectedEditPostPic}
+                      alt="post"
+                      className="img-fluid mt-2 mx-auto d-block"
+                      style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    />
+                  )}
                   <input
                     type="file"
                     className="form-control"
@@ -392,6 +403,9 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
                     onChange={(e) => {
                       if (e.target.files && e.target.files[0]) {
                         setEditPostPic(e.target.files[0]);
+                        setSelectedEditPostPic(
+                          URL.createObjectURL(e.target.files[0])
+                        );
                       }
                     }}
                   />
