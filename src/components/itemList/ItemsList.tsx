@@ -84,7 +84,7 @@ function ItemsList({ items, fetchPosts }: ItemsListProps) {
     try {
       await postsService.updatePost(currentPostId, {
         content: editContent,
-        postPic: postPicUrl,
+        postPic: postPicUrl || undefined,
       });
       setIsEditing(false);
       setCurrentPostId(null);
