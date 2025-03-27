@@ -34,22 +34,22 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/home">
+              <Link className="btn btn-link nav-link" to="/home">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/profile">
+              <Link className="btn btn-link nav-link" to="/profile">
                 Profile
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/ai">
+              <Link className="btn btn-link nav-link" to="/ai">
                 Chat
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/challenges">
+              <Link className="btn btn-link nav-link" to="/challenges">
                 Challenges
               </Link>
             </li>
