@@ -1,15 +1,7 @@
-import ItemsList from "./ItemsList";
+import ItemsList from "./itemList/ItemsList";
 import { useEffect, useState } from "react";
-import postsService, { CanceledError } from "../services/posts_service";
-
-interface Post {
-  _id: string;
-  postPic: string;
-  content: string;
-  sender: string;
-  displayName?: string;
-  avatarUrl?: string;
-}
+import postsService from "../services/posts_service";
+import { Post } from "../interfaces"; // Import interfaces
 
 function Home() {
   const [items, setItems] = useState<Post[]>([]);
@@ -19,11 +11,13 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const response = await postsService.getPosts();
-      const filteredPosts = response.data.filter((post: Post) => post.sender !== import.meta.env.VITE_SENDER_ID);
+      const filteredPosts = (response.data as unknown as Post[]).filter(
+        (post: Post) => post.sender !== import.meta.env.VITE_SENDER_ID
+      );
       setItems(filteredPosts);
     } catch (error) {
-      console.error('Failed to fetch posts', error);
-      setError('Error fetching data...');
+      console.error("Failed to fetch posts", error);
+      setError("Error fetching data...");
     } finally {
       setIsLoading(false);
     }
@@ -38,7 +32,11 @@ function Home() {
     <div className="m-3">
       {isLoading && <p>Loading...</p>}
       {error && <div className="alert alert-danger">{error}</div>}
-      <ItemsList items={items} onItemSelected={() => { }} fetchPosts={fetchPosts} />
+      <ItemsList
+        items={items}
+        onItemSelected={() => {}}
+        fetchPosts={fetchPosts}
+      />
     </div>
   );
 }

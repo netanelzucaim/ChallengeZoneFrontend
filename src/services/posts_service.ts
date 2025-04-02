@@ -3,17 +3,17 @@ import userService from "./user_service";
 import commentsService from "./comments_service";
 
 export { CanceledError }
-
 interface Post {
-    _id: string,
-    postPic: string,
-    content: string,
-    sender: string,
-    displayName?: string, // Add username field
-    avatarUrl?: string, // Add avatarUrl field
-    comments: string[],
-    likes: string[]
-}
+    _id: string;
+    content: string;
+    sender: string;
+    avatarUrl?: string;
+    postPic?: string; // Make postPic optional
+    displayName?: string;
+    comments: string[]; // Add comments array
+    likes: string[]; // Add likes array
+    createdAt: string; // Add createdAt field
+  }
 
 const getPosts = async () => {
     const abortController = new AbortController();
@@ -190,7 +190,7 @@ const removeLikeFromPost = async (postId: string) => {
     try {
         const { data: post } = await getPost(postId);
         if (post.likes.includes(userId)) {
-            post.likes = post.likes.filter(id => id !== userId);
+            post.likes = post.likes.filter((id: string) => id !== userId);
             const token = localStorage.getItem('accessToken');
             await apiClient.put(`/posts/${postId}`, { likes: post.likes }, {
                 signal: abortController.signal,

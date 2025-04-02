@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import aiService from "../services/ai_service";
+import aiService from "../../services/ai_service";
+import './AI.css'; // Import custom CSS for additional styling
 
 const Chat: React.FC = () => {
   const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
@@ -21,20 +22,11 @@ const Chat: React.FC = () => {
   };
 
   return (
-    <div className="container my-4">
+    <div className="container my-4 chat-container">
       <div className="d-flex justify-content-center mb-4">
-        <h2
-          className="p-2"
-          style={{
-            backgroundColor: "#469187",
-            color: "white", 
-            padding: "10px 20px", 
-            borderRadius: "5px", 
-            textAlign: "center"
-          }}
-        >
-          Talk With chat <br></br>
-          Ask whatever you want about fitness, sport and eating habits
+        <h2 className="chat-title">
+          Talk With Chat <br />
+          Ask whatever you want about fitness, sport, and eating habits
         </h2>
       </div>
       <div className="d-flex mt-3">
@@ -43,14 +35,13 @@ const Chat: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type a message..."
-          className="form-control me-2"
+          className="form-control me-2 chat-input"
         />
-        <button onClick={handleSendMessage} disabled={loading} className="btn btn-success">
+        <button onClick={handleSendMessage} disabled={loading} className="btn btn-success chat-send-btn">
           Send
         </button>
       </div>
-      <br></br>
-      <div className="chat-box bg-light p-3 border rounded-3" style={{ maxHeight: "400px", overflowY: "auto" }}>
+      <div className="chat-box bg-light p-3 border rounded-3 mt-3">
         {messages.map((msg, index) => (
           <div
             key={index}

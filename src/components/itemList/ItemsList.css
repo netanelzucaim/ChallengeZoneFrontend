@@ -1,0 +1,104 @@
+.new-post-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.new-post-btn:hover {
+  background-color: #0056b3;
+}
+
+.no-posts-container {
+  height: 10vh;
+  width: 22%;
+  border: 4px solid #f2b84b;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-posts-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 0;
+}
+
+.post-list {
+  max-width: 600px;
+  width: 100%;
+}
+
+.post-item {
+  background-color: #7da1c9;
+  color: black;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.post-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-avatar {
+  width: 50px;
+  height: 50px;
+}
+
+.post-image {
+  max-width: 300px;
+}
+
+.comments-link, .likes-link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0056b3;
+  transition: color 0.3s ease;
+}
+
+.comments-link:hover, .likes-link:hover {
+  color: #003d80;
+}
+
+.comment-input {
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.comment-input:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 86, 179, 0.25);
+}
+
+.add-comment-btn {
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.add-comment-btn:hover {
+  background-color: #0056b3;
+}
+
+.like-btn {
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.like-btn:hover {
+  background-color: #0056b3;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

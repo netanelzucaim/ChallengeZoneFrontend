@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
-import userService from '../services/user_service';
+import React, { useEffect, useState } from "react";
+import { Modal, Button } from "react-bootstrap";
+import userService from "../../services/user_service";
+import "./LikesModal.css"; // Import custom CSS for additional styling
 
 interface LikesModalProps {
   show: boolean;
@@ -9,13 +10,17 @@ interface LikesModalProps {
 }
 
 interface User {
-  _id: string;
+  _id?: string;
   username: string;
   displayName: string;
-  avatar: string;
+  avatar?: string;
 }
 
-const LikesModal: React.FC<LikesModalProps> = ({ show, handleClose, userIds }) => {
+const LikesModal: React.FC<LikesModalProps> = ({
+  show,
+  handleClose,
+  userIds,
+}) => {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,8 +35,8 @@ const LikesModal: React.FC<LikesModalProps> = ({ show, handleClose, userIds }) =
         const usersData = await Promise.all(userPromises);
         setUsers(usersData);
       } catch (error) {
-        console.error('Failed to fetch users', error);
-        setError('Error fetching user data...');
+        console.error("Failed to fetch users", error);
+        setError("Error fetching user data...");
       }
     };
 
@@ -43,19 +48,21 @@ const LikesModal: React.FC<LikesModalProps> = ({ show, handleClose, userIds }) =
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
         <Modal.Title>Likes</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <ul className="list-group">
           {users.map((user) => (
-            <li key={user._id} className="list-group-item d-flex align-items-center">
+            <li
+              key={user._id}
+              className="list-group-item d-flex align-items-center"
+            >
               <img
                 src={user.avatar}
                 alt="User Avatar"
-                className="rounded-circle me-2"
-                style={{ width: '30px', height: '30px' }}
+                className="rounded-circle me-2 user-avatar"
               />
               <span>{user.displayName}</span>
             </li>

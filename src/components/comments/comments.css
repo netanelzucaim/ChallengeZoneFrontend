@@ -1,0 +1,39 @@
+.comments-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.comment-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease;
+}
+
+.comment-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.comment-card img {
+  border-radius: 50%;
+}
+
+.comment-card p {
+  font-size: 16px;
+  color: #333;
+}
+
+.comment-card small {
+  font-size: 14px;
+  color: #888;
+}
+
+.btn {
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
